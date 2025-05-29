@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingenuity - Qwen3 235B A22B FP8 Throughput</title>
+    <meta name="description" content="Experience the power of Qwen3 235B A22B FP8 Throughput model | Ingenuity">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ingenuityapp.vercel.app/qwen3-235b.html">
+    <meta property="og:title" content="Qwen3 235B A22B FP8 Throughput | Ingenuity">
+    <meta property="og:description" content="Experience the power of Qwen3 235B A22B FP8 Throughput model">
+    <meta property="og:image" content="png/og-image-detailed.png">
+    <meta property="article:author" content="https://www.linkedin.com/in/bniladridas">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ingenuityapp.vercel.app/qwen3-235b.html">
+    <meta property="twitter:title" content="Qwen3 235B A22B FP8 Throughput | Ingenuity">
+    <meta property="twitter:description" content="Experience the power of Qwen3 235B A22B FP8 Throughput model">
+    <meta property="twitter:image" content="png/og-image-detailed.png">
+    <meta property="twitter:creator" content="@bniladridas">
+
+    <!-- Author Information -->
+    <meta name="author" content="Niladri Das">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://media.licdn.com/dms/image/v2/D4D0BAQGRXrchbVLnmQ/company-logo_200_200/B4DZcfVDG5GkAI-/0/1748577301437/ingenuity_amen_logo?e=1753920000&amp;v=beta&amp;t=t6AbqrmNNxzIwNRxMNfZiqUFGvyU6oMxHtAwHTH-WPM" type="image/png">
+    <style>
+        #response-content h1 {
+            font-size: 20px;
+            margin-bottom: 16px;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+        }
+
+        #response-content h2 {
+            font-size: 16px;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+        }
+
+        #response-content h3 {
+            font-size: 14px;
+            margin-top: 16px;
+            margin-bottom: 8px;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+        }
+
+        #response-content p {
+            margin-bottom: 12px;
+            line-height: 1.5;
+            color: #555;
+            font-size: 14px;
+        }
+
+        #response-content ul {
+            margin-bottom: 12px;
+            padding-left: 16px;
+        }
+
+        #response-content li {
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        #response-content a {
+            color: #555;
+            text-decoration: none;
+        }
+
+        #response-content a:hover {
+            color: #333;
+        }
+
+        /* Qwen3 Model Visualization */
+        .model-visualization {
+            width: 100%;
+            max-width: 550px;
+            margin-bottom: 24px;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .model-header {
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            color: white;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .model-title {
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 4px;
+        }
+
+        .model-subtitle {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .model-graphic {
+            height: 180px;
+            background: linear-gradient(to bottom, #f5f7fa, #c3cfe2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .model-nodes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .node {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .node-connection {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.3);
+            transform-origin: 0 0;
+        }
+
+        .model-stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 12px;
+            background-color: white;
+            border-top: 1px solid #eaeaea;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #888;
+            margin-top: 2px;
+        }
+
+        .model-description {
+            padding: 16px;
+            background-color: white;
+            border-top: 1px solid #eaeaea;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .code-block {
+            background-color: #f9f9f9;
+            border: 1px solid #eaeaea;
+            border-radius: 3px;
+            padding: 12px;
+            margin: 16px 0;
+            font-family: monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .feature-list {
+            margin-top: 16px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .feature-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+
+        .feature-text {
+            flex: 1;
+            font-size: 13px;
+            color: #555;
+        }
+
+        /* API Key Styles */
+        .api-key-container {
+            width: 100%;
+            max-width: 550px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .api-key-input {
+            display: flex;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        #api-key-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #eaeaea;
+            border-radius: 3px 0 0 3px;
+            font-size: 13px;
+            outline: none;
+            color: #333;
+        }
+
+        .api-key-button {
+            padding: 8px 12px;
+            background-color: white;
+            border: 1px solid #eaeaea;
+            border-left: none;
+            cursor: pointer;
+            color: #555;
+            font-size: 13px;
+            transition: background-color 0.2s ease;
+        }
+
+        .api-key-button:last-child {
+            border-radius: 0 3px 3px 0;
+        }
+
+        .api-key-button:hover {
+            background-color: #f9f9f9;
+        }
+
+        .api-key-status {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .api-key-status.valid {
+            color: #4caf50;
+        }
+
+        .api-key-status.invalid {
+            color: #f44336;
+        }
+
+        .api-key-info {
+            font-size: 12px;
+            color: #888;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .api-key-info a {
+            color: #555;
+            text-decoration: none;
+            margin-right: 6px;
+        }
+
+        .api-key-info a:hover {
+            text-decoration: underline;
+        }
+
+        .info-tooltip {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            cursor: help;
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: white;
+            color: #555;
+            text-align: center;
+            border-radius: 3px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 11px;
+            border: 1px solid #eaeaea;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+
+        .footer-category {
+            position: relative;
+        }
+
+        .footer-category-title {
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .footer-category-title:hover {
+            background-color: #f5f5f5;
+        }
+
+        .footer-dropdown {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 10px;
+            min-width: 150px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s;
+            z-index: 1000;
+        }
+
+        .footer-category:hover .footer-dropdown {
+            opacity: 1;
+            visibility: visible;
+            bottom: calc(100% + 5px);
+        }
+
+        .footer-dropdown a {
+            display: block;
+            padding: 8px 12px;
+            color: #555;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .footer-dropdown a:hover {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .copyright {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        /* Mobile Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .model-visualization {
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .model-graphic {
+                height: 150px;
+            }
+
+            .model-stats {
+                flex-wrap: wrap;
+                gap: 10px;
+                padding: 10px;
+            }
+
+            .stat-item {
+                flex: 1 1 120px;
+                min-width: 120px;
+            }
+
+            .api-key-container {
+                max-width: 100%;
+                padding: 10px;
+            }
+
+            .api-key-input {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .api-key-button {
+                width: 100%;
+                border: 1px solid #ddd;
+            }
+
+            .api-key-button:last-child {
+                border-radius: 0 3px 3px 0;
+            }
+
+            .api-key-button:hover {
+                background-color: #f9f9f9;
+            }
+
+            .code-block {
+                font-size: 12px;
+                padding: 10px;
+                margin: 10px 0;
+            }
+
+            .feature-item {
+                padding: 10px;
+                margin: 8px 0;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+                padding: 0 10px;
+            }
+
+            .footer-category {
+                width: 100%;
+                text-align: center;
+            }
+
+            .footer-dropdown {
+                position: static;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                padding: 10px 0;
+                opacity: 1;
+                visibility: visible;
+                display: none;
+                width: 100%;
+            }
+
+            .footer-category:hover .footer-dropdown {
+                display: block;
+            }
+
+            #response-content {
+                padding: 0 10px;
+            }
+
+            .input-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            #prompt-textarea {
+                width: 100%;
+                margin-right: 0;
+            }
+
+            #search-button {
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 8px;
+            }
+
+            .model-graphic {
+                height: 120px;
+            }
+
+            .model-title {
+                font-size: 16px;
+            }
+
+            .api-key-container {
+                padding: 8px;
+            }
+
+            .api-key-button {
+                font-size: 12px;
+            }
+
+            .code-block {
+                font-size: 11px;
+                padding: 8px;
+                margin: 8px 0;
+            }
+
+            .feature-item {
+                padding: 8px;
+                margin: 6px 0;
+            }
+
+            .footer-links {
+                gap: 15px;
+            }
+
+            .footer-category-title {
+                font-size: 14px;
+            }
+
+            .footer-dropdown a {
+                font-size: 13px;
+                padding: 6px 10px;
+            }
+
+            .input-container {
+                padding: 8px;
+            }
+
+            #prompt-textarea {
+                font-size: 13px;
+                padding: 8px;
+            }
+
+            #search-button {
+                padding: 8px;
+            }
+        }
+
+        /* Mobile Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .model-visualization {
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .model-graphic {
+                height: 150px;
+            }
+
+            .model-stats {
+                flex-wrap: wrap;
+                gap: 10px;
+                padding: 10px;
+            }
+
+            .stat-item {
+                flex: 1 1 120px;
+                min-width: 120px;
+            }
+
+            .api-key-container {
+                max-width: 100%;
+                padding: 10px;
+            }
+
+            .api-key-input {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .api-key-button {
+                width: 100%;
+                border: 1px solid #ddd;
+            }
+
+            .code-block {
+                font-size: 12px;
+                padding: 10px;
+                margin: 10px 0;
+            }
+
+            .feature-item {
+                padding: 10px;
+                margin: 8px 0;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+                padding: 0 10px;
+            }
+
+            .footer-category {
+                width: 100%;
+                text-align: center;
+            }
+
+            .footer-dropdown {
+                position: static;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                padding: 10px 0;
+                opacity: 1;
+                visibility: visible;
+                display: none;
+                width: 100%;
+            }
+
+            .footer-category:hover .footer-dropdown {
+                display: block;
+            }
+
+            #response-content {
+                padding: 0 10px;
+            }
+
+            .input-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            #prompt-textarea {
+                width: 100%;
+                margin-right: 0;
+            }
+
+            #search-button {
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 8px;
+            }
+
+            .model-graphic {
+                height: 120px;
+            }
+
+            .model-title {
+                font-size: 16px;
+            }
+
+            .model-subtitle {
+                font-size: 13px;
+            }
+
+            .stat-value {
+                font-size: 14px;
+            }
+
+            .stat-label {
+                font-size: 11px;
+            }
+
+            .code-block {
+                font-size: 11px;
+                padding: 8px;
+            }
+
+            .model-description {
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            .footer-links {
+                gap: 15px;
+            }
+
+            .footer-category-title {
+                font-size: 14px;
+            }
+
+            .footer-dropdown a {
+                font-size: 13px;
+                padding: 6px 10px;
+            }
+
+            .input-container {
+                padding: 8px;
+            }
+
+            #prompt-textarea {
+                font-size: 13px;
+                padding: 8px;
+            }
+
+            #search-button {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="assets/ingenuity-logo.svg" alt="Ingenuity" class="logo">
+        </div>
+        <h1>Ingenuity</h1>
+    </header>
+
+    <div class="container">
+        <div class="subtitle">Advanced AI | <span style="color: #3498db;">Built for Developers</span></div>
+
+        <!-- Qwen3 Model Visualization -->
+        <div class="model-visualization">
+            <div class="model-header">
+                <div class="model-title">Qwen3 235B A22B FP8 Throughput</div>
+                <div class="model-subtitle">Advanced Large Language Model</div>
+            </div>
+            <div class="model-graphic" id="model-graphic">
+                <div class="model-nodes" id="model-nodes"></div>
+            </div>
+            <div class="model-stats">
+                <div class="stat-item">
+                    <div class="stat-value">235B</div>
+                    <div class="stat-label">Parameters</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">A22B</div>
+                    <div class="stat-label">Architecture</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">FP8</div>
+                    <div class="stat-label">Precision</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">High</div>
+                    <div class="stat-label">Throughput</div>
+                </div>
+            </div>
+            <div class="model-description">
+                Qwen3 235B A22B FP8 Throughput is a state-of-the-art large language model optimized for high-performance inference. With 235 billion parameters and FP8 precision, it delivers exceptional results while maintaining efficiency.
+            </div>
+        </div>
+
+        <div class="api-key-container">
+            <div class="api-key-input">
+                <input type="password" id="api-key-input" placeholder="Enter your Together API key">
+                <button id="save-api-key" class="api-key-button">Save Key</button>
+                <button id="clear-api-key" class="api-key-button">Clear Key</button>
+            </div>
+            <div id="api-key-status" class="api-key-status">API key required to use Qwen3 model</div>
+            <div class="api-key-info">
+                <a href="https://www.together.ai/api" target="_blank" rel="noopener noreferrer">Get a Together API key</a>
+                <span class="info-tooltip">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    <span class="tooltip-text">Your API key is stored locally in your browser and never sent to our servers.</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="input-container">
+            <input type="text" id="prompt-textarea" placeholder="Ask a question about Qwen3...">
+            <button id="search-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div id="response-content">
+            <h1>Qwen3 235B A22B FP8 Throughput</h1>
+
+            <div class="qwen-section">
+                <h2>1. Model Overview</h2>
+                <p>Qwen3 235B A22B FP8 Throughput is a cutting-edge large language model developed with a focus on high performance and efficiency. This model represents a significant advancement in AI capabilities, offering exceptional natural language understanding and generation.</p>
+
+                <p>With 235 billion parameters, the Qwen3 model delivers state-of-the-art results across a wide range of tasks while maintaining impressive throughput thanks to its optimized architecture and FP8 precision.</p>
+            </div>
+
+            <div class="qwen-section">
+                <h2>2. Key Features</h2>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <div class="feature-text">
+                            <strong>Advanced Architecture:</strong> Built on the A22B architecture, providing enhanced performance and efficiency.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <div class="feature-text">
+                            <strong>FP8 Precision:</strong> Utilizes FP8 quantization for optimal balance between accuracy and computational efficiency.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <div class="feature-text">
+                            <strong>High Throughput:</strong> Optimized for processing large volumes of requests efficiently.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <div class="feature-text">
+                            <strong>Extensive Training:</strong> Trained on diverse datasets to ensure broad knowledge and capabilities.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qwen-section">
+                <h2>3. Integration Example</h2>
+                <p>Integrating with the Qwen3 235B A22B FP8 Throughput model is straightforward using the Together API. Here's a simple example:</p>
+
+                <div class="code-block">
+import Together from "together-ai";
+
+const together = new Together(); // auth defaults to process.env.TOGETHER_API_KEY
+
+const response = await together.chat.completions.create({
+  messages: [{"role": "user", "content": "What are some fun things to do in New York?"}],
+  model: "Qwen/Qwen3-235B-A22B-fp8-tput"
+});
+
+console.log(response.choices[0].message.content)
+                </div>
+
+                <p>This code snippet demonstrates how to send a simple query to the Qwen3 model and retrieve its response using the Together API.</p>
+            </div>
+
+            <div class="qwen-section">
+                <h2>4. Use Cases</h2>
+                <ul>
+                    <li><strong>Content Generation:</strong> Create high-quality articles, stories, and creative content</li>
+                    <li><strong>Conversational AI:</strong> Power sophisticated chatbots and virtual assistants</li>
+                    <li><strong>Research Assistance:</strong> Aid in literature review, data analysis, and hypothesis generation</li>
+                    <li><strong>Code Generation:</strong> Assist with programming tasks and code optimization</li>
+                    <li><strong>Translation:</strong> Provide accurate translations between multiple languages</li>
+                    <li><strong>Summarization:</strong> Condense long documents while preserving key information</li>
+                </ul>
+            </div>
+
+            <div class="qwen-section">
+                <h2>5. Performance Benchmarks</h2>
+                <p>The Qwen3 235B A22B FP8 Throughput model demonstrates exceptional performance across various benchmarks:</p>
+
+                <ul>
+                    <li>Achieves state-of-the-art results on language understanding tasks</li>
+                    <li>Excels in reasoning and problem-solving scenarios</li>
+                    <li>Maintains high accuracy in specialized domains including science, medicine, and law</li>
+                    <li>Delivers responses with minimal latency despite its large parameter count</li>
+                    <li>Handles complex, multi-turn conversations with coherence and context awareness</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="reasoning-container">
+            <div class="reasoning-header">Computation</div>
+            <div id="reasoning-content"></div>
+            <div class="token-info">
+                <span class="token-count"><span id="token-count">0</span> tokens</span>
+                <span class="computation-time"><span id="computation-time">0</span> ms</span>
+            </div>
+        </div>
+
+        <div id="loading-indicator">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <div class="footer-category">
+                <div class="footer-category-title">Models</div>
+                <div class="footer-dropdown">
+                    <a href="transformers.html">Transformers</a>
+                    <a href="advanced-ai.html">Advanced AI</a>
+                    <a href="qwen3-235b.html">Qwen 3.5B</a>
+                    <a href="gemini.html">Gemini</a>
+                </div>
+            </div>
+            <div class="footer-category">
+                <div class="footer-category-title">Resources</div>
+                <div class="footer-dropdown">
+                    <a href="documentation.html">Documentation</a>
+                    <a href="ai-ethics.html">AI Ethics</a>
+                    <a href="partners.html">Partners</a>
+                </div>
+            </div>
+            <div class="footer-category">
+                <div class="footer-category-title">About</div>
+                <div class="footer-dropdown">
+                    <a href="index.html">Main Page</a>
+                    <a href="about.html">About Us</a>
+                    <a href="settings.html">Settings</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Ingenuity. All rights reserved. Interface design used under MIT License.
+        </div>
+    </footer>
+
+    <script src="security.js"></script>
+    <script src="cookies.js"></script>
+    <script src="script.js"></script>
+    <script src="connection-status.js"></script>
+    <script>
+        // Create photorealistic neural network visualization
+        document.addEventListener('DOMContentLoaded', function() {
+            const graphicContainer = document.getElementById('model-graphic');
+            const nodesContainer = document.getElementById('model-nodes');
+
+            // Create nodes
+            const nodeCount = 50;
+            for (let i = 0; i < nodeCount; i++) {
+                const node = document.createElement('div');
+                node.className = 'node';
+
+                // Random position
+                const top = Math.random() * 100;
+                const left = Math.random() * 100;
+
+                node.style.top = `${top}%`;
+                node.style.left = `${left}%`;
+
+                // Random size (slightly varied)
+                const size = 6 + Math.random() * 8;
+                node.style.width = `${size}px`;
+                node.style.height = `${size}px`;
+
+                // Random opacity
+                const opacity = 0.5 + Math.random() * 0.5;
+                node.style.opacity = opacity;
+
+                // Add pulse animation with random delay
+                node.style.animation = `pulse 3s infinite ${Math.random() * 3}s`;
+
+                nodesContainer.appendChild(node);
+            }
+
+            // Create connections between nodes
+            const connectionCount = 80;
+            for (let i = 0; i < connectionCount; i++) {
+                const connection = document.createElement('div');
+                connection.className = 'node-connection';
+
+                // Random start and end positions
+                const startTop = Math.random() * 100;
+                const startLeft = Math.random() * 100;
+                const endTop = Math.random() * 100;
+                const endLeft = Math.random() * 100;
+
+                // Calculate length and angle
+                const length = Math.sqrt(Math.pow(endLeft - startLeft, 2) + Math.pow(endTop - startTop, 2));
+                const angle = Math.atan2(endTop - startTop, endLeft - startLeft) * 180 / Math.PI;
+
+                // Set position and dimensions
+                connection.style.top = `${startTop}%`;
+                connection.style.left = `${startLeft}%`;
+                connection.style.width = `${length}%`;
+                connection.style.height = '1px';
+                connection.style.transform = `rotate(${angle}deg)`;
+
+                // Random opacity
+                const opacity = 0.1 + Math.random() * 0.3;
+                connection.style.opacity = opacity;
+
+                nodesContainer.appendChild(connection);
+            }
+
+            // Add keyframes for pulse animation if not already in the document
+            if (!document.getElementById('pulse-animation')) {
+                const style = document.createElement('style');
+                style.id = 'pulse-animation';
+                style.textContent = `
+                    @keyframes pulse {
+                        0% { transform: scale(1); opacity: 0.5; }
+                        50% { transform: scale(1.2); opacity: 0.8; }
+                        100% { transform: scale(1); opacity: 0.5; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            // API Key Management
+            const apiKeyInput = document.getElementById('api-key-input');
+            const saveApiKeyButton = document.getElementById('save-api-key');
+            const clearApiKeyButton = document.getElementById('clear-api-key');
+            const apiKeyStatus = document.getElementById('api-key-status');
+            const searchButton = document.getElementById('search-button');
+            const promptTextarea = document.getElementById('prompt-textarea');
+            const responseContent = document.getElementById('response-content');
+            const reasoningContent = document.getElementById('reasoning-content');
+            const tokenCount = document.getElementById('token-count');
+            const computationTime = document.getElementById('computation-time');
+            const loadingIndicator = document.getElementById('loading-indicator');
+
+            // Check if API key exists in local storage
+            const storedApiKey = localStorage.getItem('together_api_key');
+            if (storedApiKey) {
+                apiKeyInput.value = storedApiKey;
+                apiKeyStatus.textContent = 'API key saved';
+                apiKeyStatus.className = 'api-key-status valid';
+            }
+
+            // Set up event listeners for the search button and prompt textarea
+            searchButton.addEventListener('click', () => {
+                handleQwen3Submit();
+            });
+
+            promptTextarea.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleQwen3Submit();
+                }
+            });
+
+            // Save API key to local storage
+            saveApiKeyButton.addEventListener('click', () => {
+                const apiKey = apiKeyInput.value.trim();
+                if (apiKey) {
+                    // Basic validation (check if it looks like a valid API key)
+                    if (apiKey.length < 20) {
+                        apiKeyStatus.textContent = 'Invalid API key format';
+                        apiKeyStatus.className = 'api-key-status invalid';
+                        return;
+                    }
+
+                    // Save to local storage
+                    localStorage.setItem('together_api_key', apiKey);
+                    apiKeyStatus.textContent = 'API key saved';
+                    apiKeyStatus.className = 'api-key-status valid';
+
+                    // Mask the input
+                    apiKeyInput.type = 'password';
+                } else {
+                    apiKeyStatus.textContent = 'Please enter an API key';
+                    apiKeyStatus.className = 'api-key-status invalid';
+                }
+            });
+
+            // Clear API key from local storage
+            clearApiKeyButton.addEventListener('click', () => {
+                localStorage.removeItem('together_api_key');
+                apiKeyInput.value = '';
+                apiKeyStatus.textContent = 'API key removed';
+                apiKeyStatus.className = 'api-key-status';
+                setTimeout(() => {
+                    apiKeyStatus.textContent = 'API key required to use Qwen3 model';
+                }, 2000);
+            });
+
+            // Function to handle form submission on the Qwen3 page
+            function handleQwen3Submit() {
+                const prompt = promptTextarea.value.trim();
+                const model = "Qwen/Qwen3-235B-A22B-fp8-tput"; // Always use Qwen3 model on this page
+
+                if (!prompt) {
+                    alert('Please enter a prompt');
+                    return;
+                }
+
+                // Check for API key
+                const apiKey = localStorage.getItem('together_api_key');
+                if (!apiKey) {
+                    alert('Please enter your Together API key to use the Qwen3 model');
+                    apiKeyInput.focus();
+                    return;
+                }
+
+                // Reset UI
+                loadingIndicator.style.display = 'flex';
+                responseContent.innerHTML = '<h1>Qwen3 235B A22B FP8 Throughput</h1>'; // Keep the title
+                reasoningContent.innerHTML = '';
+                tokenCount.textContent = '0';
+                computationTime.textContent = '0';
+
+                // Create EventSource with API key
+                const eventSource = new EventSource(`/api/generate?prompt=${encodeURIComponent(prompt)}&model=${encodeURIComponent(model)}&api_key=${encodeURIComponent(apiKey)}`);
+
+                let responseText = '';
+
+                // Handle incoming events
+                eventSource.onmessage = (event) => {
+                    try {
+                        const data = JSON.parse(event.data);
+
+                        switch (data.type) {
+                            case 'response':
+                                // Update response content
+                                responseText += data.content || '';
+                                displayResponse(responseText);
+                                break;
+
+                            case 'reasoning':
+                                // Update reasoning process
+                                if (data.reasoning) {
+                                    reasoningContent.textContent = data.reasoning;
+                                }
+                                break;
+
+                            case 'metrics':
+                                // Update token count and computation time
+                                if (data.tokens) {
+                                    tokenCount.textContent = data.tokens;
+                                }
+                                if (data.time) {
+                                    computationTime.textContent = data.time;
+                                }
+                                break;
+
+                            case 'done':
+                                // Finalize the response
+                                eventSource.close();
+                                loadingIndicator.style.display = 'none';
+                                break;
+
+                            case 'error':
+                                // Check if it's an API key error
+                                if (data.error && data.error.includes('API key')) {
+                                    apiKeyStatus.textContent = 'Invalid API key';
+                                    apiKeyStatus.className = 'api-key-status invalid';
+                                    eventSource.close();
+                                    loadingIndicator.style.display = 'none';
+                                    responseContent.innerHTML = `<h1>Qwen3 235B A22B FP8 Throughput</h1><p class="error-message">Error: ${data.error}</p>`;
+                                } else {
+                                    // For other errors, close the connection and show error
+                                    eventSource.close();
+                                    loadingIndicator.style.display = 'none';
+                                    responseContent.innerHTML = `<h1>Qwen3 235B A22B FP8 Throughput</h1><p class="error-message">Error: ${data.error || 'Unknown error'}</p>`;
+                                }
+                                break;
+                        }
+                    } catch (error) {
+                        console.error('Error parsing event:', error);
+                    }
+                };
+
+                eventSource.onerror = (error) => {
+                    console.error('EventSource error:', error);
+                    eventSource.close();
+                    loadingIndicator.style.display = 'none';
+
+                    if (!responseText) {
+                        responseContent.innerHTML = `<h1>Qwen3 235B A22B FP8 Throughput</h1><p class="error-message">Error: Connection to server lost</p>`;
+                    }
+                };
+            }
+
+            // Add a custom displayResponse function for this page
+            function displayResponse(response) {
+                // Process special formatting for math expressions
+                let formattedResponse = response;
+
+                // Clean up redundant markdown and formatting
+                // First, normalize line endings
+                formattedResponse = formattedResponse.replace(/\r\n/g, '\n');
+
+                // Format boxed answers (only once)
+                formattedResponse = formattedResponse.replace(/\\boxed\{([^}]+)\}/g, '<span class="boxed">$1</span>');
+
+                // Format LaTeX-like math expressions
+                formattedResponse = formattedResponse.replace(/\\text\{([^}]+)\}/g, '$1');
+                formattedResponse = formattedResponse.replace(/\\times/g, '×');
+
+                // Format calculation steps
+                formattedResponse = formattedResponse.replace(/\[\s*\\text/g, '<div class="math-step">\\text');
+                formattedResponse = formattedResponse.replace(/\\\]/g, '</div>');
+
+                // Remove redundant markdown formatting
+                // First pass: Convert markdown to HTML
+                formattedResponse = formattedResponse
+                    // Handle numbered steps with bold (only once)
+                    .replace(/(\d+\.\s*)\*\*([^*]+)\*\*/g, '<strong>$1$2</strong>')
+                    // Handle other bold text (only once)
+                    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                    // Handle italic text (only once)
+                    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+                    // Handle code blocks (only once)
+                    .replace(/`([^`]+)`/g, '<code>$1</code>');
+
+                // Convert line breaks to <br> tags and wrap in paragraphs
+                formattedResponse = formattedResponse
+                    .split('\n\n')
+                    .map(paragraph => {
+                        // Skip paragraphs that are already HTML elements
+                        if (paragraph.trim().startsWith('<') && !paragraph.trim().startsWith('<br>')) {
+                            return paragraph;
+                        }
+                        return `<p>${paragraph.replace(/\n/g, '<br>')}</p>`;
+                    })
+                    .join('');
+
+                // Add the title back
+                responseContent.innerHTML = '<h1>Qwen3 235B A22B FP8 Throughput</h1>' + formattedResponse;
+            }
+        });
+    </script>
+</body>
+</html>

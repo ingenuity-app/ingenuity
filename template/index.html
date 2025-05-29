@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ingenuity</title>
+    <meta name="description" content="Ingenuity - Inspiration and motivation | Permanently free for token generation & inference" />
+
+    <link rel="icon" href="https://media.licdn.com/dms/image/v2/D4D0BAQGRXrchbVLnmQ/company-logo_200_200/B4DZcfVDG5GkAI-/0/1748577301437/ingenuity_amen_logo?e=1753920000&amp;v=beta&amp;t=t6AbqrmNNxzIwNRxMNfZiqUFGvyU6oMxHtAwHTH-WPM" type="image/png" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        /* Reset and base */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+                Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            background-color: #f5f5f2;
+            color: #111;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: transparent;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .logo {
+            width: 36px;
+            height: 36px;
+            filter: none;
+        }
+
+        h1 {
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: #111;
+            margin: 0;
+        }
+
+        main {
+            flex: 1;
+            max-width: 720px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .model-selector {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        select#model-dropdown {
+            font-size: 1rem;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: white;
+            color: #111;
+            cursor: pointer;
+            transition: border-color 0.2s ease;
+            outline-offset: 2px;
+        }
+
+        select#model-dropdown:hover,
+        select#model-dropdown:focus {
+            border-color: #333;
+            outline: none;
+        }
+
+        .subtitle {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: #222;
+        }
+
+        .subtitle span {
+            color: #000;
+            font-weight: 700;
+        }
+
+        .description {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #444;
+            max-width: 600px;
+        }
+
+        .model-visualization {
+            width: 100%;
+            max-width: 700px;
+            height: 220px;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .model-header {
+            background: transparent;
+            padding: 20px 24px;
+            border-bottom: none;
+            color: #111;
+            text-align: left;
+        }
+
+        .model-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .model-subtitle {
+            font-size: 0.875rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .model-graphic {
+            flex: 1;
+            background: radial-gradient(circle at center, #0000001a 0%, transparent 70%);
+            position: relative;
+        }
+
+        .default-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .default-node {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background-color: #111;
+            border-radius: 50%;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+            opacity: 0.8;
+        }
+
+        .default-node-1 {
+            animation: float-around 8s infinite ease-in-out;
+            animation-delay: 0s;
+        }
+
+        .default-node-2 {
+            animation: float-around 8s infinite ease-in-out;
+            animation-delay: 1.3s;
+        }
+
+        .default-node-3 {
+            animation: float-around 8s infinite ease-in-out;
+            animation-delay: 2.6s;
+        }
+
+        .default-node-4 {
+            animation: float-around 8s infinite ease-in-out;
+            animation-delay: 3.9s;
+        }
+
+        .default-node-5 {
+            animation: float-around 8s infinite ease-in-out;
+            animation-delay: 5.2s;
+        }
+
+        .default-node-6 {
+            animation: float-around 8s infinite ease-in-out;
+            animation-delay: 6.5s;
+        }
+
+        @keyframes float-around {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.4;
+            }
+            25% {
+                transform: translate(80px, 40px) scale(3);
+                opacity: 1;
+            }
+            50% {
+                transform: translate(160px, 0) scale(2);
+                opacity: 0.8;
+            }
+            75% {
+                transform: translate(80px, -40px) scale(4);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.4;
+            }
+        }
+
+        .input-container {
+            display: flex;
+            gap: 12px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        #prompt-textarea {
+            flex: 1;
+            font-size: 1rem;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline-offset: 2px;
+            transition: border-color 0.2s ease;
+        }
+
+        #prompt-textarea:focus {
+            border-color: transparent;
+            outline: none;
+            box-shadow: none;
+        }
+
+        #search-button {
+            background-color: #111;
+            border: none;
+            border-radius: 8px;
+            padding: 0 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease;
+        }
+
+        #search-button:hover {
+            background-color: #333;
+        }
+
+        #search-button svg {
+            stroke: #fff;
+        }
+
+        #response-content {
+            max-width: 700px;
+            margin: 24px auto 0;
+            font-size: 1rem;
+            color: #222;
+            min-height: 80px;
+        }
+
+        #reasoning-container {
+            max-width: 700px;
+            margin: 16px auto 0;
+            background: #fff;
+            border-radius: 8px;
+            padding: 12px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            color: #444;
+            font-size: 0.875rem;
+        }
+
+        .reasoning-header {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #111;
+        }
+
+        .token-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        #loading-indicator {
+            max-width: 700px;
+            margin: 20px auto;
+            display: none;
+            justify-content: center;
+        }
+
+        .spinner {
+            border: 4px solid #eee;
+            border-top: 4px solid #111;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        footer {
+            background: transparent;
+            padding: 20px 40px;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .footer-category {
+            position: relative;
+        }
+
+        .footer-category-title {
+            font-weight: 600;
+            color: #111;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+            user-select: none;
+        }
+
+        .footer-category-title:hover {
+            background-color: #eee;
+        }
+
+        .footer-dropdown {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 12px 16px;
+            min-width: 160px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 1000;
+        }
+
+        .footer-category:hover .footer-dropdown {
+            opacity: 1;
+            visibility: visible;
+            bottom: calc(100% + 8px);
+        }
+
+        .footer-dropdown a {
+            display: block;
+            padding: 8px 0;
+            color: #111;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .footer-dropdown a:hover {
+            color: #333;
+        }
+
+        .copyright {
+            width: 100%;
+            text-align: center;
+            font-size: 0.875rem;
+            color: #666;
+            margin-top: 24px;
+            user-select: none;
+        }
+
+        /* Cookie Consent Banner */
+        #cookie-consent {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            max-width: 600px;
+            font-size: 0.875rem;
+            color: #111;
+            z-index: 1100;
+        }
+
+        .cookie-text {
+            flex: 1;
+        }
+
+        .cookie-text a {
+            color: #111;
+            text-decoration: underline;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .cookie-button {
+            background: #111;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        .cookie-button:hover {
+            background-color: #333;
+        }
+
+        .cookie-decline {
+            background: #eee;
+            color: #555;
+        }
+
+        .cookie-decline:hover {
+            background: #ccc;
+            color: #333;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 16px 20px;
+            }
+
+            main {
+                margin: 24px 16px;
+                gap: 24px;
+            }
+
+            .model-visualization {
+                height: 180px;
+            }
+
+            .input-container {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            #search-button {
+                width: 100%;
+                padding: 12px 0;
+            }
+
+            footer {
+                padding: 16px 20px;
+                gap: 24px;
+            }
+
+            .footer-dropdown {
+                position: static;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                padding: 8px 0;
+                opacity: 1;
+                visibility: visible;
+                display: none;
+            }
+
+            .footer-category:hover .footer-dropdown {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.25rem;
+            }
+
+            .model-title {
+                font-size: 1.25rem;
+            }
+
+            .model-subtitle {
+                font-size: 0.75rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .description {
+                font-size: 0.875rem;
+            }
+        }
+        .input-container:focus-within {
+            border-color: #333 !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="assets/ingenuity-logo.svg" alt="Ingenuity" class="logo" />
+        <h1>Ingenuity</h1>
+    </header>
+
+    <main>
+        <div class="model-selector">
+            <select id="model-dropdown" aria-label="Select AI model">
+                <option value="default" selected>Default Model</option>
+                <option value="alternative">Alternative Model</option>
+            </select>
+        </div>
+        <div class="subtitle">
+            Advanced AI | <span>Built for Developers</span>
+        </div>
+        <div class="description">
+            A powerful language model interface designed for seamless integration and reliable performance.
+        </div>
+        <div class="model-visualization" role="img" aria-label="Model visualization">
+            <div class="model-header">
+                <div class="model-title">Computer Program</div>
+                <div class="model-subtitle">Advanced Language Processing</div>
+            </div>
+            <div class="model-graphic">
+                <div class="default-animation" aria-hidden="true">
+                    <div class="default-node default-node-1"></div>
+                    <div class="default-node default-node-2"></div>
+                    <div class="default-node default-node-3"></div>
+                    <div class="default-node default-node-4"></div>
+                    <div class="default-node default-node-5"></div>
+                    <div class="default-node default-node-6"></div>
+                </div>
+            </div>
+        </div>
+        <div class="input-container">
+            <input type="text" id="prompt-textarea" placeholder="Ask a question..." aria-label="Ask a question" />
+            <button id="search-button" aria-label="Search">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+        </div>
+        <div id="response-content" role="region" aria-live="polite"></div>
+        <div id="reasoning-container" role="region" aria-label="Computation details">
+            <div class="reasoning-header">Computation</div>
+            <div id="reasoning-content"></div>
+            <div class="token-info">
+                <span class="token-count"><span id="token-count">0</span> tokens</span>
+                <span class="computation-time"><span id="computation-time">0</span> ms</span>
+            </div>
+        </div>
+        <div id="loading-indicator" aria-hidden="true">
+            <div class="spinner"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-category">
+            <div class="footer-category-title" tabindex="0">Models</div>
+            <div class="footer-dropdown" aria-label="Models links">
+                <a href="transformers.html">Transformers</a>
+                <a href="advanced-ai.html">Advanced AI</a>
+                <a href="qwen3-235b.html">Qwen 3.5B</a>
+                <a href="gemini.html">Gemini</a>
+            </div>
+        </div>
+        <div class="footer-category">
+            <div class="footer-category-title" tabindex="0">Resources</div>
+            <div class="footer-dropdown" aria-label="Resources links">
+                <a href="documentation.html">Documentation</a>
+                <a href="ai-ethics.html">AI Ethics</a>
+                <a href="partners.html">Partners</a>
+            </div>
+        </div>
+        <div class="footer-category">
+            <div class="footer-category-title" tabindex="0">About</div>
+            <div class="footer-dropdown" aria-label="About links">
+                <a href="index.html">Main Page</a>
+                <a href="about.html">About Us</a>
+                <a href="settings.html">Settings</a>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Ingenuity. All rights reserved. Interface design used under MIT License.
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-consent" role="dialog" aria-live="polite" aria-label="Cookie consent banner">
+        <div class="cookie-text">
+            This website uses cookies to enhance your experience. By continuing to use this site, you consent to our use of cookies in accordance with our <a href="terms.html">Terms of Service</a>.
+        </div>
+        <div class="cookie-buttons">
+            <button id="cookie-decline" class="cookie-button cookie-decline">Decline</button>
+            <button id="cookie-accept" class="cookie-button cookie-accept">Accept</button>
+        </div>
+    </div>
+    <script src="security.js"></script>
+    <script src="cookies.js"></script>
+    <script src="script.js"></script>
+    <script src="connection-status.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const nodes = document.querySelectorAll('.default-node');
+            const graphic = document.querySelector('.model-graphic');
+
+            if (graphic && nodes.length > 0) {
+                const graphicWidth = graphic.offsetWidth;
+                const graphicHeight = graphic.offsetHeight;
+
+                nodes.forEach((node) => {
+                    const randomX = Math.floor(Math.random() * (graphicWidth - 20)) + 10;
+                    const randomY = Math.floor(Math.random() * (graphicHeight - 20)) + 10;
+                    node.style.left = `${randomX}px`;
+                    node.style.top = `${randomY}px`;
+                });
+            }
+
+            const closeButton = document.querySelector('.notification-close');
+            const notification = document.querySelector('.notification');
+
+            if (closeButton && notification) {
+                closeButton.addEventListener('click', function () {
+                    notification.style.opacity = '0';
+                    notification.style.transform = 'translateY(-10px)';
+                    setTimeout(() => {
+                        notification.style.display = 'none';
+                    }, 500);
+                });
+
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    notification.style.transform = 'translateY(-10px)';
+                    setTimeout(() => {
+                        notification.style.display = 'none';
+                    }, 500);
+                }, 10000);
+            }
+        });
+    </script>
+</body>
+</html>

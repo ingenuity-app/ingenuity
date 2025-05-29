@@ -1,0 +1,314 @@
+background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 20px;
+}
+=======
+body {
+    background-color: #2f2f2f; /* Dark background */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 40px 60px; /* More padding for spacious layout */
+    color: #ddd; /* Light text color */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+h1 {
+    font-size: 20px;
+    font-weight: 400;
+    color: #333;
+    letter-spacing: 0.01em;
+}
+=======
+h1 {
+    font-size: 48px; /* Larger font size for main heading */
+    font-weight: 400;
+    color: #eee; /* Light text */
+    letter-spacing: 0.05em; /* Increased letter spacing */
+    font-family: Georgia, "Times New Roman", serif; /* Serif font for heading */
+    margin-bottom: 40px;
+}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+=======
+header {
+    margin-bottom: 50px;
+    text-align: right; /* Align header text right */
+}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+=======
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Align content right */
+    text-align: right; /* Right align text */
+}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+#response-content {
+    width: 100%;
+    max-width: 550px;
+    min-width: 550px; /* Added min-width for consistent width */
+    min-height: 300px; /* Increased min-height for thicker UX */
+    padding: 16px;
+    line-height: 1.5;
+    font-size: 14px;
+    background-color: white;
+    border-radius: 3px;
+    border: 1px solid #eaeaea;
+}
+=======
+#response-content {
+    width: 100%;
+    max-width: 600px;
+    min-width: 600px;
+    min-height: 300px;
+    padding: 24px;
+    line-height: 1.6;
+    font-size: 16px;
+    background-color: #3a3a3a; /* Slightly lighter dark background */
+    border-radius: 6px;
+    border: none;
+    color: #ddd;
+    text-align: right;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+footer {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 11px;
+    color: #888;
+    padding: 16px 0;
+    display: flex;
+    flex-direction: column; /* Align items vertically */
+    align-items: center;
+}
+=======
+footer {
+    margin-top: 60px;
+    text-align: center;
+    font-size: 12px;
+    color: #aaa;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+.footer-links a {
+    color: #888;
+    text-decoration: none;
+    margin: 0 8px;
+}
+=======
+.footer-links a {
+    color: #aaa;
+    text-decoration: none;
+    margin: 0 12px;
+    letter-spacing: 0.15em;
+    font-weight: 300;
+}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+.footer-links a:hover {
+    color: #555;
+}
+=======
+.footer-links a:hover {
+    color: #eee;
+}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+.footer-divider {
+    color: #eaeaea;
+    margin: 0 4px;
+}
+=======
+.footer-divider {
+    color: #555;
+    margin: 0 6px;
+}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+.copyright {
+    margin-top: 8px;
+    font-size: 10px;
+    color: #aaa;
+}
+=======
+.copyright {
+    margin-top: 12px;
+    font-size: 10px;
+    color: #777;
+}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+/* Additional spacing for about-section */
+.about-section {
+    margin-bottom: 24px;
+}
+=======
+/* Additional spacing for about-section */
+.about-section {
+    margin-bottom: 36px;
+}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+.author-profile {
+    display: flex;
+    align-items: center;
+    margin: 24px 0;
+    padding: 16px;
+    border: 1px solid #eaeaea;
+    border-radius: 3px;
+}
+=======
+.author-profile {
+    border: none;
+    padding: 0;
+    margin: 0 0 40px 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 24px;
+}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+.author-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 3px;
+    margin-right: 24px;
+    border: 1px solid #eaeaea;
+}
+=======
+.author-image {
+    width: 140px;
+    height: 140px;
+    border-radius: 6px;
+    border: none;
+}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+.author-info {
+    flex: 1;
+}
+=======
+.author-info {
+    max-width: 400px;
+    text-align: right;
+}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+.author-name {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    letter-spacing: 0.01em;
+}
+=======
+.author-name {
+    font-size: 20px;
+    font-weight: 400;
+    color: #eee;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    font-family: Georgia, "Times New Roman", serif;
+}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+.author-title {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 12px;
+}
+=======
+.author-title {
+    font-size: 16px;
+    color: #bbb;
+    margin-bottom: 12px;
+    font-weight: 300;
+}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 16px;
+    color: #555;
+    text-decoration: none;
+    font-size: 13px;
+}
+=======
+.social-links a {
+    color: #bbb;
+    font-size: 14px;
+    margin-right: 20px;
+}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+.social-links a:hover {
+    color: #333;
+}
+=======
+.social-links a:hover {
+    color: #eee;
+}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+/* Links in commitment boxes */
+.commitment-box a {
+    color: #ccc;
+}
+
+.commitment-box a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+=======
+/* Links in commitment boxes */
+.commitment-box a {
+    color: #ccc;
+}
+
+.commitment-box a:hover {
+    color: #fff;
+    text-decoration: underline;
+}

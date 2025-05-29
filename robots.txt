@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /transformers
+Allow: /ai-ethics
+Allow: /advanced-ai
+Allow: /documentation
+Allow: /partners
+Allow: /settings
+Allow: /terms
+Allow: /qwen3-235b
+Allow: /gemini
+
+Sitemap: https://ingenuityapp.vercel.app/sitemap.xml

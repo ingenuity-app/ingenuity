@@ -1,0 +1,36 @@
+{
+  "name": "ingenuity",
+  "version": "1.0.0",
+  "description": "Ingenuity - Inspiration and motivation | Permanently free for token generation & inference",
+  "private": true,
+  "scripts": {
+    "deploy": "vercel --prod"
+  },
+  "engines": {
+    "node": ">=18.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bniladridas/ingenuity"
+  },
+  "keywords": [
+    "ai",
+    "language-model",
+    "education",
+    "transformer",
+    "ethics"
+  ],
+  "author": "Niladri Das",
+  "license": "MIT",
+  "dependencies": {
+    "@google/generative-ai": "^0.2.1",
+    "axios": "^1.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mime": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.32"
+  }
+}

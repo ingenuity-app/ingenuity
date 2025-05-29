@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        @font-face {
+            font-family: 'System Font';
+            src: local('-apple-system'), local('BlinkMacSystemFont'), local('Segoe UI'), local('Roboto'), local('Helvetica'), local('Arial'), local('sans-serif');
+        }
+        .logo-text {
+            font-family: 'System Font', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 32px;
+            font-weight: 500;
+            fill: #2c3e50;
+            letter-spacing: -0.02em;
+        }
+    </style>
+    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" class="logo-text">Ingenuity</text>
+</svg> 

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingenuity - Settings</title>
+    <meta name="description" content="Settings for Ingenuity | Permanently free for token generation & inference">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ingenuityapp.vercel.app/settings.html">
+    <meta property="og:title" content="Settings | Ingenuity">
+    <meta property="og:description" content="Configure your Ingenuity settings">
+    <meta property="og:image" content="png/og-image-detailed.png">
+    <meta property="article:author" content="https://www.linkedin.com/in/bniladridas">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ingenuityapp.vercel.app/settings.html">
+    <meta property="twitter:title" content="Settings | Ingenuity">
+    <meta property="twitter:description" content="Configure your Ingenuity settings">
+    <meta property="twitter:image" content="png/og-image-detailed.png">
+    <meta property="twitter:creator" content="@bniladridas">
+
+    <!-- Author Information -->
+    <meta name="author" content="Niladri Das">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://media.licdn.com/dms/image/v2/D4D0BAQGRXrchbVLnmQ/company-logo_200_200/B4DZcfVDG5GkAI-/0/1748577301437/ingenuity_amen_logo?e=1753920000&amp;v=beta&amp;t=t6AbqrmNNxzIwNRxMNfZiqUFGvyU6oMxHtAwHTH-WPM" type="image/png">
+    <style>
+        .settings-section {
+            margin-bottom: 24px;
+            width: 100%;
+        }
+
+        .settings-section h2 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #555;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .form-group input[type="password"],
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #eaeaea;
+            background-color: white;
+            border-radius: 3px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .form-group .hint {
+            font-size: 11px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 16px;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: 1px solid #eaeaea;
+            border-radius: 3px;
+            font-size: 13px;
+            cursor: pointer;
+            background-color: white;
+        }
+
+        .btn-primary {
+            color: #555;
+        }
+
+        .btn-primary:hover {
+            background-color: #f9f9f9;
+        }
+
+        .btn-secondary {
+            color: #888;
+        }
+
+        .btn-danger {
+            color: #888;
+        }
+
+        .alert {
+            padding: 8px 12px;
+            border-radius: 3px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            border: 1px solid #eaeaea;
+        }
+
+        .alert-success {
+            color: #555;
+        }
+
+        .alert-error {
+            color: #555;
+        }
+
+        .security-info {
+            border: 1px solid #eaeaea;
+            padding: 12px;
+            border-radius: 3px;
+            margin-top: 16px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .security-info h3 {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+        }
+
+        .security-info ul {
+            padding-left: 16px;
+        }
+
+        .security-info li {
+            margin-bottom: 4px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 6px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+
+        .footer-category {
+            position: relative;
+        }
+
+        .footer-category-title {
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .footer-category-title:hover {
+            background-color: #f5f5f5;
+        }
+
+        .footer-dropdown {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 10px;
+            min-width: 150px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s;
+            z-index: 1000;
+        }
+
+        .footer-category:hover .footer-dropdown {
+            opacity: 1;
+            visibility: visible;
+            bottom: calc(100% + 5px);
+        }
+
+        .footer-dropdown a {
+            display: block;
+            padding: 8px 12px;
+            color: #555;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .footer-dropdown a:hover {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .copyright {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="assets/ingenuity-logo.svg" alt="Ingenuity" class="logo">
+        </div>
+        <h1>Ingenuity</h1>
+    </header>
+
+    <div class="container">
+        <div class="subtitle">Advanced AI | <span style="color: #3498db;">Built for Developers</span></div>
+
+        <div id="alert-container"></div>
+
+        <div id="response-content">
+            <div class="settings-section">
+                <h2>Account Management</h2>
+                <div class="form-group">
+                    <label for="api-key">Ingenuity Access Token</label>
+                    <input type="password" id="api-key" placeholder="Enter your Ingenuity access token">
+                    <div class="hint">Your access token is encrypted and stored only in your browser's local storage.</div>
+                </div>
+
+                <div class="form-actions">
+                    <button id="save-api-key" class="btn btn-primary">Save Token</button>
+                    <button id="clear-api-key" class="btn btn-danger">Clear Token</button>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2>Security Settings</h2>
+                <div class="form-group">
+                    <label for="session-timeout">Session Timeout (minutes)</label>
+                    <input type="number" id="session-timeout" min="5" max="120" value="30">
+                    <div class="hint">Your session will expire after this period of inactivity.</div>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="clear-on-exit">
+                        <label for="clear-on-exit">Clear all data when browser is closed</label>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button id="save-security-settings" class="btn btn-primary">Save Security Settings</button>
+                    <button id="reset-security-settings" class="btn btn-secondary">Reset to Defaults</button>
+                </div>
+            </div>
+
+            <div class="security-info">
+                <h3>Security Information</h3>
+                <ul>
+                    <li>Your access token is encrypted before being stored in your browser's local storage.</li>
+                    <li>All data is processed according to Ingenuity's privacy and security policies.</li>
+                    <li>All communication with Ingenuity servers is done over HTTPS.</li>
+                    <li>Input validation and sanitization is performed on all user inputs.</li>
+                    <li>Rate limiting is applied to ensure fair usage of resources.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <div class="footer-category">
+                <div class="footer-category-title">Models</div>
+                <div class="footer-dropdown">
+                    <a href="transformers.html">Transformers</a>
+                    <a href="advanced-ai.html">Advanced AI</a>
+                    <a href="qwen3-235b.html">Qwen 3.5B</a>
+                    <a href="gemini.html">Gemini</a>
+                </div>
+            </div>
+            <div class="footer-category">
+                <div class="footer-category-title">Resources</div>
+                <div class="footer-dropdown">
+                    <a href="documentation.html">Documentation</a>
+                    <a href="ai-ethics.html">AI Ethics</a>
+                    <a href="partners.html">Partners</a>
+                </div>
+            </div>
+            <div class="footer-category">
+                <div class="footer-category-title">About</div>
+                <div class="footer-dropdown">
+                    <a href="index.html">Main Page</a>
+                    <a href="about.html">About Us</a>
+                    <a href="settings.html">Settings</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Ingenuity. All rights reserved. Interface design used under MIT License.
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-consent" class="cookie-consent">
+        <div class="cookie-text">
+            This website uses cookies to enhance your experience. By continuing to use this site, you consent to our use of cookies in accordance with our <a href="terms.html">Terms of Service</a>.
+        </div>
+        <div class="cookie-buttons">
+            <button id="cookie-decline" class="cookie-button cookie-decline">Decline</button>
+            <button id="cookie-accept" class="cookie-button cookie-accept">Accept</button>
+        </div>
+    </div>
+
+    <script src="security.js"></script>
+    <script src="cookies.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const apiKeyInput = document.getElementById('api-key');
+            const saveApiKeyBtn = document.getElementById('save-api-key');
+            const clearApiKeyBtn = document.getElementById('clear-api-key');
+            const sessionTimeoutInput = document.getElementById('session-timeout');
+            const clearOnExitCheckbox = document.getElementById('clear-on-exit');
+            const saveSecuritySettingsBtn = document.getElementById('save-security-settings');
+            const resetSecuritySettingsBtn = document.getElementById('reset-security-settings');
+            const alertContainer = document.getElementById('alert-container');
+
+            // Load saved API key if exists
+            const savedApiKey = SecurityUtils.getApiKey();
+            if (savedApiKey) {
+                apiKeyInput.value = savedApiKey;
+                showAlert('API key loaded from secure storage.', 'success');
+            }
+
+            // Load security settings
+            const sessionTimeout = localStorage.getItem('sessionTimeout') || 30;
+            const clearOnExit = localStorage.getItem('clearOnExit') === 'true';
+
+            sessionTimeoutInput.value = sessionTimeout;
+            clearOnExitCheckbox.checked = clearOnExit;
+
+            // Save API key
+            saveApiKeyBtn.addEventListener('click', () => {
+                const apiKey = apiKeyInput.value.trim();
+
+                if (!apiKey) {
+                    showAlert('Please enter an API key.', 'error');
+                    return;
+                }
+
+                if (!SecurityUtils.validateApiKeyFormat(apiKey)) {
+                    showAlert('Invalid API key format. Please check and try again.', 'error');
+                    return;
+                }
+
+                if (SecurityUtils.storeApiKey(apiKey)) {
+                    showAlert('API key saved successfully!', 'success');
+                } else {
+                    showAlert('Failed to save API key. Please try again.', 'error');
+                }
+            });
+
+            // Clear API key
+            clearApiKeyBtn.addEventListener('click', () => {
+                if (confirm('Are you sure you want to clear your API key?')) {
+                    apiKeyInput.value = '';
+                    if (SecurityUtils.clearApiKey()) {
+                        showAlert('API key cleared successfully.', 'success');
+                    } else {
+                        showAlert('Failed to clear API key. Please try again.', 'error');
+                    }
+                }
+            });
+
+            // Save security settings
+            saveSecuritySettingsBtn.addEventListener('click', () => {
+                const sessionTimeout = parseInt(sessionTimeoutInput.value) || 30;
+                const clearOnExit = clearOnExitCheckbox.checked;
+
+                localStorage.setItem('sessionTimeout', sessionTimeout);
+                localStorage.setItem('clearOnExit', clearOnExit);
+
+                showAlert('Security settings saved successfully!', 'success');
+            });
+
+            // Reset security settings
+            resetSecuritySettingsBtn.addEventListener('click', () => {
+                sessionTimeoutInput.value = 30;
+                clearOnExitCheckbox.checked = false;
+
+                localStorage.setItem('sessionTimeout', 30);
+                localStorage.setItem('clearOnExit', false);
+
+                showAlert('Security settings reset to defaults.', 'success');
+            });
+
+            // Helper function to show alerts
+            function showAlert(message, type) {
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type}`;
+                alert.textContent = message;
+
+                alertContainer.innerHTML = '';
+                alertContainer.appendChild(alert);
+
+                // Auto-dismiss after 5 seconds
+                setTimeout(() => {
+                    alert.style.opacity = '0';
+                    setTimeout(() => {
+                        alertContainer.removeChild(alert);
+                    }, 500);
+                }, 5000);
+            }
+        });
+    </script>
+    <script src="security.js"></script>
+    <script src="cookies.js"></script>
+    <script src="connection-status.js"></script>
+</body>
+</html>
