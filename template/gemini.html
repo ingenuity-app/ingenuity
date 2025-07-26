@@ -3,627 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingenuity - Gemini 1.5 Flash</title>
-    <meta name="description" content="Experience the power of Google's Gemini 1.5 Flash model | Ingenuity">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ingenuityapp.vercel.app/gemini.html">
-    <meta property="og:title" content="Gemini 1.5 Flash | Ingenuity">
-    <meta property="og:description" content="Experience the power of Google's Gemini 1.5 Flash model">
-    <meta property="og:image" content="png/og-image-detailed.png">
-    <meta property="article:author" content="https://www.linkedin.com/in/bniladridas">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://ingenuityapp.vercel.app/gemini.html">
-    <meta property="twitter:title" content="Gemini 1.5 Flash | Ingenuity">
-    <meta property="twitter:description" content="Experience the power of Google's Gemini 1.5 Flash model">
-    <meta property="twitter:image" content="png/og-image-detailed.png">
-    <meta property="twitter:creator" content="@bniladridas">
-
-    <!-- Author Information -->
-    <meta name="author" content="Niladri Das">
-
+    <title>Ingenuity - Gemini 2.0 Flash</title>
+    <meta name="description" content="Experience the power of Google's Gemini 2.0 Flash model | Ingenuity">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="https://media.licdn.com/dms/image/v2/D4D0BAQGRXrchbVLnmQ/company-logo_200_200/B4DZcfVDG5GkAI-/0/1748577301437/ingenuity_amen_logo?e=1753920000&amp;v=beta&amp;t=t6AbqrmNNxzIwNRxMNfZiqUFGvyU6oMxHtAwHTH-WPM" type="image/png">
+    <!-- Prism.js for code highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
     <style>
-        #response-content h1 {
-            font-size: 20px;
-            margin-bottom: 16px;
-            font-weight: 400;
-            letter-spacing: 0.01em;
-        }
-
-        #response-content h2 {
-            font-size: 16px;
-            margin-top: 24px;
-            margin-bottom: 12px;
-            font-weight: 500;
-            letter-spacing: 0.01em;
-        }
-
-        #response-content h3 {
-            font-size: 14px;
-            margin-top: 16px;
-            margin-bottom: 8px;
-            font-weight: 400;
-            letter-spacing: 0.01em;
-        }
-
-        #response-content p {
-            margin-bottom: 12px;
-            line-height: 1.5;
-            color: #555;
-            font-size: 14px;
-        }
-
-        #response-content ul {
-            margin-bottom: 12px;
-            padding-left: 16px;
-        }
-
-        #response-content li {
-            margin-bottom: 6px;
-            font-size: 14px;
-        }
-
-        #response-content a {
-            color: #555;
-            text-decoration: none;
-        }
-
-        #response-content a:hover {
-            color: #333;
-        }
-
-        /* Gemini Model Visualization */
-        .model-visualization {
-            width: 100%;
-            max-width: 550px;
-            margin-bottom: 24px;
-            border-radius: 4px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .model-header {
-            background: linear-gradient(135deg, #4285f4, #34a853, #fbbc05, #ea4335);
-            color: white;
-            padding: 16px;
-            text-align: center;
-        }
-
-        .model-title {
-            font-size: 18px;
-            font-weight: 400;
-            margin-bottom: 4px;
-        }
-
-        .model-subtitle {
-            font-size: 12px;
-            opacity: 0.8;
-        }
-
-        .model-graphic {
-            height: 180px;
-            background: linear-gradient(to bottom, #f5f7fa, #c3cfe2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .gemini-animation {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .gemini-circle {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.7;
-            transform-origin: center;
-        }
-
-        .gemini-circle-1 {
-            width: 80px;
-            height: 80px;
-            background-color: rgba(66, 133, 244, 0.7);
-            animation: pulse-rotate 8s infinite ease-in-out;
-        }
-
-        .gemini-circle-2 {
-            width: 60px;
-            height: 60px;
-            background-color: rgba(52, 168, 83, 0.7);
-            animation: pulse-rotate 6s infinite ease-in-out reverse;
-        }
-
-        .gemini-circle-3 {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(251, 188, 5, 0.7);
-            animation: pulse-rotate 4s infinite ease-in-out;
-        }
-
-        .gemini-circle-4 {
-            width: 20px;
-            height: 20px;
-            background-color: rgba(234, 67, 53, 0.7);
-            animation: pulse-rotate 2s infinite ease-in-out reverse;
-        }
-
-        @keyframes pulse-rotate {
-            0% {
-                transform: scale(1) rotate(0deg);
-                opacity: 0.7;
-            }
-            50% {
-                transform: scale(1.2) rotate(180deg);
-                opacity: 0.9;
-            }
-            100% {
-                transform: scale(1) rotate(360deg);
-                opacity: 0.7;
-            }
-        }
-
-        .model-stats {
-            display: flex;
-            justify-content: space-around;
-            padding: 12px;
-            background-color: white;
-            border-top: 1px solid #eaeaea;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 16px;
-            font-weight: 500;
-            color: #333;
-        }
-
-        .stat-label {
-            font-size: 11px;
-            color: #888;
-            margin-top: 2px;
-        }
-
-        .model-description {
-            padding: 16px;
-            background-color: white;
-            border-top: 1px solid #eaeaea;
-            font-size: 13px;
-            color: #555;
-            line-height: 1.5;
-        }
-
-        .code-block {
-            background-color: #f9f9f9;
-            border: 1px solid #eaeaea;
-            border-radius: 3px;
-            padding: 12px;
-            margin: 16px 0;
-            font-family: monospace;
-            font-size: 13px;
-            line-height: 1.5;
-            overflow-x: auto;
-            white-space: pre-wrap;
-        }
-
-        .feature-list {
-            margin-top: 16px;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 12px;
-        }
-
-        .feature-icon {
-            width: 16px;
-            height: 16px;
-            margin-right: 8px;
-            margin-top: 2px;
-            color: #4285f4;
-        }
-
-        .feature-text {
-            flex: 1;
-            font-size: 13px;
-            color: #555;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 20px;
-        }
-
-        .footer-category {
-            position: relative;
-        }
-
-        .footer-category-title {
-            color: #333;
-            font-weight: 500;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background-color 0.2s;
-        }
-
-        .footer-category-title:hover {
-            background-color: #f5f5f5;
-        }
-
-        .footer-dropdown {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: white;
-            border: 1px solid #eee;
-            border-radius: 4px;
-            padding: 10px;
-            min-width: 150px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.2s;
-            z-index: 1000;
-        }
-
-        .footer-category:hover .footer-dropdown {
-            opacity: 1;
-            visibility: visible;
-            bottom: calc(100% + 5px);
-        }
-
-        .footer-dropdown a {
-            display: block;
-            padding: 8px 12px;
-            color: #555;
-            text-decoration: none;
-            transition: background-color 0.2s;
-            white-space: nowrap;
-        }
-
-        .footer-dropdown a:hover {
-            background-color: #f5f5f5;
-            color: #333;
-        }
-
-        .copyright {
-            text-align: center;
-            color: #666;
-            font-size: 14px;
-            margin-top: 20px;
-        }
+        .content-page .main-content { justify-content: flex-start; align-items: flex-start; padding-top: 60px; }
+        .page-title { font-size: 48px; font-weight: 700; color: #111111; margin-bottom: 40px; line-height: 1.2; }
+        .page-content { max-width: 600px; font-size: 18px; line-height: 1.6; color: #333333; }
+        .page-content h2 { font-size: 32px; font-weight: 600; color: #111111; margin: 40px 0 20px 0; line-height: 1.3; }
+        .page-content p { margin-bottom: 20px; }
+        .page-content ul { margin-bottom: 20px; padding-left: 20px; }
+        .page-content li { margin-bottom: 8px; }
+        .input-section { width: 100%; max-width: 500px; margin: 20px 0; }
+        .input-container { display: flex; width: 100%; border: 1px solid #cccccc; border-radius: 8px; overflow: hidden; transition: border-color 0.2s ease; background-color: #ffffff; }
+        .input-container:focus-within { border-color: #333333; }
+        #gemini-prompt-textarea { flex: 1; padding: 16px; border: none; background-color: #ffffff; font-size: 16px; outline: none; color: #111111; line-height: 1.6; resize: none; }
+        #gemini-search-button { background: #111111; border: none; padding: 0 20px; cursor: pointer; color: #ffffff; display: flex; align-items: center; justify-content: center; transition: background-color 0.2s ease; }
+        #gemini-search-button:hover { background-color: #333333; }
+        .spinner { border: 4px solid #eee; border-top: 4px solid #111; border-radius: 50%; width: 28px; height: 28px; animation: spin 1s linear infinite; margin: 0 auto; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .api-key-section { margin: 20px 0; }
+        .api-key-section label { display: block; font-weight: 600; margin-bottom: 8px; color: #333333; }
+        .api-key-input-container { display: flex; align-items: center; gap: 8px; }
+        #gemini-api-key { flex-grow: 1; padding: 12px; border: 1px solid #cccccc; border-radius: 6px; }
+        .api-key-button { padding: 12px 16px; border: 1px solid #cccccc; border-radius: 6px; background-color: #f0f0f0; cursor: pointer; }
+        .api-key-button:hover { background-color: #e0e0e0; }
+        #api-key-status { font-size: 14px; margin-top: 8px; }
+        .api-key-status.valid { color: #4caf50; }
+        .api-key-status.invalid { color: #f44336; }
+        .code-block { background-color: #f9f9f9; border: 1px solid #eaeaea; border-radius: 3px; padding: 12px; margin: 16px 0; font-family: monospace; font-size: 13px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; }
     </style>
 </head>
-<body>
+<body class="content-page">
     <header>
-        <div class="logo-container">
-            <img src="assets/ingenuity-logo.svg" alt="Ingenuity" class="logo">
-        </div>
         <h1>Ingenuity</h1>
     </header>
 
-    <div class="container">
-        <div class="subtitle">Advanced AI | <span style="color: #3498db;">Built for Developers</span></div>
+    <div class="layout-container">
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item">Home</a>
+                <a href="transformers.html" class="nav-item">Transformers</a>
+                <a href="advanced-ai.html" class="nav-item">Advanced AI</a>
+                <a href="qwen3-235b.html" class="nav-item">Qwen3 235B</a>
+                <a href="gemini.html" class="nav-item active">Gemini</a>
+                <a href="documentation.html" class="nav-item">Documentation</a>
+                <a href="ai-ethics.html" class="nav-item">AI Ethics</a>
+                <a href="about.html" class="nav-item">About</a>
+                <a href="settings.html" class="nav-item">Settings</a>
+            </nav>
+        </aside>
 
-        <!-- Gemini Model Visualization -->
-        <div class="model-visualization">
-            <div class="model-header">
-                <div class="model-title">Gemini 1.5 Flash</div>
-                <div class="model-subtitle">Google's Fast AI Model</div>
-            </div>
-            <div class="model-graphic">
-                <div class="gemini-animation">
-                    <div class="gemini-circle gemini-circle-1"></div>
-                    <div class="gemini-circle gemini-circle-2"></div>
-                    <div class="gemini-circle gemini-circle-3"></div>
-                    <div class="gemini-circle gemini-circle-4"></div>
-                </div>
-            </div>
-            <div class="model-stats">
-                <div class="stat-item">
-                    <div class="stat-value">1.5</div>
-                    <div class="stat-label">Model Version</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">Flash</div>
-                    <div class="stat-label">Variant</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">Stable</div>
-                    <div class="stat-label">Status</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">2023</div>
-                    <div class="stat-label">Release</div>
-                </div>
-            </div>
-            <div class="model-description">
-                Gemini 1.5 Flash is Google's powerful multimodal AI model, designed for high-quality responses with advanced reasoning capabilities. It showcases Google's cutting-edge AI technology with excellent instruction following and creative generation abilities.
-            </div>
-        </div>
+        <main class="main-content">
+            <h1 class="page-title">Gemini 2.0 Flash</h1>
+            <div class="page-content">
+                <h2>Model Information</h2>
+                <p>This page provides access to Google's Gemini 2.0 Flash model, a powerful multimodal AI designed to deliver high-quality responses with advanced reasoning capabilities. It showcases Google's cutting-edge AI technology with excellent instruction following and creative generation abilities.</p>
 
-        <div class="input-container">
-            <input type="text" id="prompt-textarea" placeholder="Ask a question about Gemini...">
-            <button id="search-button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="7"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-            </button>
-        </div>
+                <h2>Key Features</h2>
+                <ul>
+                    <li><strong>Multimodal Understanding:</strong> Processes and understands text, images, audio, and video inputs.</li>
+                    <li><strong>Enhanced Reasoning:</strong> Improved logical reasoning and problem-solving capabilities.</li>
+                    <li><strong>Optimized Performance:</strong> Designed for fast response times without sacrificing quality.</li>
+                    <li><strong>Improved Context Understanding:</strong> Better comprehension of nuanced instructions and queries.</li>
+                </ul>
 
-        <div id="response-content">
-            <h1>Gemini 1.5 Flash</h1>
+                <h2>Integration Example</h2>
+                <p>Integrating with the Gemini 2.0 Flash model is straightforward using the Google GenAI API. Here's a simple example:</p>
+                <pre><code class="language-javascript">// Server-side implementation using @google/genai
+// This matches the actual implementation in server.js
 
-            <div class="gemini-section">
-                <h2>1. Model Overview</h2>
-                <p>Gemini 1.5 Flash is Google's powerful multimodal AI model, designed to deliver high-quality responses with advanced reasoning capabilities. It showcases Google's cutting-edge AI technology with excellent instruction following and creative generation abilities.</p>
+// First, install the required package:
+// npm install @google/genai
 
-                <p>As part of the Gemini family, this model builds on the foundation of previous versions while introducing significant improvements in context length and reasoning quality. The "Pro" variant is optimized for complex tasks, making it ideal for sophisticated applications.</p>
-            </div>
+const { GoogleGenAI } = require('@google/genai');
 
-            <div class="gemini-section">
-                <h2>2. Key Features</h2>
-                <div class="feature-list">
-                    <div class="feature-item">
-                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <div class="feature-text">
-                            <strong>Multimodal Understanding:</strong> Processes and understands text, images, audio, and video inputs.
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <div class="feature-text">
-                            <strong>Enhanced Reasoning:</strong> Improved logical reasoning and problem-solving capabilities.
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <div class="feature-text">
-                            <strong>Optimized Performance:</strong> Designed for fast response times without sacrificing quality.
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <div class="feature-text">
-                            <strong>Improved Context Understanding:</strong> Better comprehension of nuanced instructions and queries.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="gemini-section">
-                <h2>3. Integration Example</h2>
-                <p>Integrating with the Gemini 1.5 Flash model is straightforward using the Google GenAI API. Here's a simple example:</p>
-                
-                <div class="code-block">
-// To run this code you need to install the following dependencies:
-// npm install @google/genai mime
-// npm install -D @types/node
-
-import {
-  GoogleGenerativeAI,
-} from '@google/generative-ai';
-
-async function main() {
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+async function generateContent() {
+  // Get your API key from environment variables or config
+  const API_KEY = process.env.GEMINI_API_KEY; // or from your config
   
-  const prompt = "Your question here";
-  
-  const result = await model.generateContent(prompt);
-  const response = result.response.text();
-  console.log(response);
-  
-  // For streaming responses
-  const streamingResult = await model.generateContentStream(prompt);
-  for await (const chunk of streamingResult.stream) {
-    console.log(chunk.text());
+  try {
+    // Initialize the client
+    const ai = new GoogleGenAI(API_KEY);
+    
+    // Prepare the prompt and model
+    const prompt = 'Your question here';
+    const model = 'gemini-2.0-flash';
+
+    // Prepare the request contents
+    const contents = [
+      {
+        role: 'user',
+        parts: [{ text: prompt }],
+      },
+    ];
+
+    // Configure tools (like web search)
+    const tools = [
+      {
+        googleSearch: {}
+      },
+    ];
+
+    // Make the API call
+    const response = await ai.models.generateContentStream({
+      model: model,
+      contents: contents,
+      config: {
+        tools: tools,
+      },
+    });
+
+    // Process the streaming response
+    for await (const chunk of response) {
+      const chunkText = chunk.text;
+      if (chunkText) {
+        console.log(chunkText);
+        // In a real implementation, you might send this to the client
+        // res.write(`data: ${JSON.stringify({ content: chunkText })}\n\n`);
+      }
+    }
+    
+  } catch (error) {
+    console.error('Error calling Gemini API:', error);
+    // Handle error appropriately
+    throw error;
   }
 }
 
-main();
+// Call the function
+generateContent();
+</code></pre>
+            </div>
+        </main>
+
+        <section class="content-area">
+            <div class="api-key-section">
+                <label for="gemini-api-key">Google Gemini API Key:</label>
+                <div class="api-key-input-container">
+                    <input type="password" id="gemini-api-key" placeholder="Enter your API key">
+                    <button id="save-api-key" class="api-key-button">Save</button>
+                    <button id="clear-api-key" class="api-key-button">Clear</button>
                 </div>
-                
-                <p>This code snippet demonstrates how to send a simple query to the Gemini 1.5 Flash model and retrieve its streaming response using the Google GenAI API.</p>
+                <div id="api-key-status"></div>
             </div>
 
-            <div class="gemini-section">
-                <h2>4. Use Cases</h2>
-                <ul>
-                    <li><strong>Conversational AI:</strong> Power chatbots and virtual assistants with fast, natural responses</li>
-                    <li><strong>Content Creation:</strong> Generate high-quality text, from creative writing to technical documentation</li>
-                    <li><strong>Research Assistance:</strong> Analyze information and provide insights across various domains</li>
-                    <li><strong>Educational Tools:</strong> Create interactive learning experiences with quick response times</li>
-                    <li><strong>Customer Support:</strong> Provide fast, accurate responses to customer inquiries</li>
-                    <li><strong>Code Generation:</strong> Assist with programming tasks and code optimization</li>
-                </ul>
+            <div class="input-section">
+                <div class="input-container">
+                    <input type="text" id="gemini-prompt-textarea" placeholder="Ask Gemini a question..." aria-label="Ask Gemini a question" />
+                    <button id="gemini-search-button" aria-label="Search">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </button>
+                </div>
             </div>
 
-            <div class="gemini-section">
-                <h2>5. Performance Highlights</h2>
-                <p>Gemini 1.5 Flash demonstrates exceptional performance across various benchmarks:</p>
-                
-                <ul>
-                    <li>Achieves state-of-the-art results on language understanding tasks with deep comprehension</li>
-                    <li>Excels in complex reasoning and problem-solving scenarios with advanced logical capabilities</li>
-                    <li>Demonstrates excellent instruction following with nuanced understanding of requirements</li>
-                    <li>Shows impressive capabilities in creative content generation across various formats</li>
-                    <li>Maintains high performance across multiple languages and specialized domains</li>
-                </ul>
+            <div id="gemini-loading-indicator" style="display: none; text-align: center; margin: 20px 0;">
+                <div class="spinner"></div>
             </div>
-        </div>
 
-        <div id="reasoning-container">
-            <div class="reasoning-header">Computation</div>
-            <div id="reasoning-content"></div>
-            <div class="token-info">
-                <span class="token-count"><span id="token-count">0</span> tokens</span>
-                <span class="computation-time"><span id="computation-time">0</span> ms</span>
+            <div id="gemini-response-content" style="min-height: 200px; padding: 0 0 20px 0; line-height: 1.7; font-size: 14px; color: #111111; margin-bottom: 20px;">
+                <h1>Gemini 2.0 Flash</h1>
             </div>
-        </div>
 
-        <div id="loading-indicator">
-            <div class="spinner"></div>
-        </div>
+            <div id="gemini-reasoning-container" style="width: 100%; background: #ffffff; border-radius: 8px; padding: 16px; border: 1px solid #e0e0e0; font-size: 12px; color: #666666;">
+                <div class="reasoning-header" style="font-weight: 600; margin-bottom: 8px; color: #111;">Computation</div>
+                <div id="gemini-reasoning-content"></div>
+                <div class="token-info" style="display: flex; justify-content: flex-end; gap: 12px; font-size: 10px; color: #666; margin-top: 8px;">
+                    <span class="token-count"><span id="gemini-token-count">0</span> tokens</span>
+                    <span class="computation-time"><span id="gemini-computation-time">0</span> ms</span>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <footer>
-        <div class="footer-links">
-            <div class="footer-category">
-                <div class="footer-category-title">Models</div>
-                <div class="footer-dropdown">
-                    <a href="transformers.html">Transformers</a>
-                    <a href="advanced-ai.html">Advanced AI</a>
-                    <a href="qwen3-235b.html">Qwen 3.5B</a>
-                    <a href="gemini.html">Gemini</a>
-                </div>
-            </div>
-            <div class="footer-category">
-                <div class="footer-category-title">Resources</div>
-                <div class="footer-dropdown">
-                    <a href="documentation.html">Documentation</a>
-                    <a href="ai-ethics.html">AI Ethics</a>
-                    <a href="partners.html">Partners</a>
-                </div>
-            </div>
-            <div class="footer-category">
-                <div class="footer-category-title">About</div>
-                <div class="footer-dropdown">
-                    <a href="index.html">Main Page</a>
-                    <a href="about.html">About Us</a>
-                    <a href="settings.html">Settings</a>
-                </div>
-            </div>
-        </div>
-        <div class="copyright">
-            &copy; 2025 Ingenuity. All rights reserved. Interface design used under MIT License.
-        </div>
-    </footer>
-
     <script src="security.js"></script>
-    <script src="cookies.js"></script>
     <script src="script.js"></script>
-    <script src="connection-status.js"></script>
     <script>
+        // Initialize Prism for code highlighting
         document.addEventListener('DOMContentLoaded', function() {
-            // DOM Elements
-            const promptTextarea = document.getElementById('prompt-textarea');
-            const searchButton = document.getElementById('search-button');
-            const responseContent = document.getElementById('response-content');
-            const reasoningContent = document.getElementById('reasoning-content');
-            const tokenCount = document.getElementById('token-count');
-            const computationTime = document.getElementById('computation-time');
-            const loadingIndicator = document.getElementById('loading-indicator');
-            
-            // Set up event listeners
-            searchButton.addEventListener('click', handleGeminiSubmit);
-            promptTextarea.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    handleGeminiSubmit();
-                }
+            // Re-run Prism highlighting after dynamic content loads
+            if (window.Prism) {
+                Prism.highlightAll();
+            }
+            const searchButton = document.getElementById('gemini-search-button');
+            const promptTextarea = document.getElementById('gemini-prompt-textarea');
+            const apiKeyInput = document.getElementById('gemini-api-key');
+            const saveApiKeyButton = document.getElementById('save-api-key');
+            const clearApiKeyButton = document.getElementById('clear-api-key');
+            const apiKeyStatus = document.getElementById('api-key-status');
+            const responseContent = document.getElementById('gemini-response-content');
+            const reasoningContent = document.getElementById('gemini-reasoning-content');
+            const loadingIndicator = document.getElementById('gemini-loading-indicator');
+            const tokenCount = document.getElementById('gemini-token-count');
+            const computationTime = document.getElementById('gemini-computation-time');
+
+            const storedApiKey = localStorage.getItem('gemini_api_key');
+            if (storedApiKey) { apiKeyInput.value = storedApiKey; apiKeyStatus.textContent = 'API key is saved locally.'; apiKeyStatus.className = 'api-key-status valid'; }
+
+            saveApiKeyButton.addEventListener('click', () => {
+                const apiKey = apiKeyInput.value.trim();
+                if (apiKey) { localStorage.setItem('gemini_api_key', apiKey); apiKeyStatus.textContent = 'API key saved!'; apiKeyStatus.className = 'api-key-status valid';
+                } else { apiKeyStatus.textContent = 'Please enter an API key.'; apiKeyStatus.className = 'api-key-status invalid'; }
             });
-            
-            // Handle Gemini submission
+
+            clearApiKeyButton.addEventListener('click', () => {
+                localStorage.removeItem('gemini_api_key');
+                apiKeyInput.value = '';
+                apiKeyStatus.textContent = 'API key cleared.';
+                apiKeyStatus.className = 'api-key-status';
+            });
+
+            searchButton.addEventListener('click', handleGeminiSubmit);
+            promptTextarea.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleGeminiSubmit(); } });
+
             function handleGeminiSubmit() {
                 const prompt = promptTextarea.value.trim();
-                
-                if (!prompt) {
-                    alert('Please enter a prompt');
-                    return;
-                }
-                
-                // Reset UI
+                const model = "gemini-2.0-flash";
+                if (!prompt) { alert('Please enter a prompt'); return; }
+                const apiKey = localStorage.getItem('gemini_api_key');
+                if (!apiKey) { alert('Please save your API key first.'); apiKeyInput.focus(); return; }
+
                 loadingIndicator.style.display = 'flex';
-                responseContent.innerHTML = '<h1>Gemini 1.5 Flash</h1>'; // Keep the title
+                responseContent.innerHTML = '<h1>Gemini 2.0 Flash</h1>';
                 reasoningContent.innerHTML = '';
                 tokenCount.textContent = '0';
                 computationTime.textContent = '0';
-                
-                // Start timing
-                const startTime = Date.now();
-                
-                // Call the Gemini API
-                fetch('/api/gemini', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ prompt }),
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Calculate time
-                    const endTime = Date.now();
-                    const elapsedTime = endTime - startTime;
-                    
-                    // Update UI
-                    displayGeminiResponse(data.response);
-                    reasoningContent.textContent = `Processed query using Gemini 1.5 Flash model\nGenerated response in ${elapsedTime}ms`;
-                    tokenCount.textContent = data.tokenCount || Math.round(data.response.length / 4); // Estimate if not provided
-                    computationTime.textContent = elapsedTime;
-                    
-                    // Hide loading indicator
-                    loadingIndicator.style.display = 'none';
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    responseContent.innerHTML = `<h1>Gemini 1.5 Flash</h1><p class="error-message">Error: ${error.message}</p>`;
-                    loadingIndicator.style.display = 'none';
-                });
-            }
-            
-            // Display Gemini response
-            function displayGeminiResponse(response) {
-                // Process special formatting
-                let formattedResponse = response;
-                
-                // Convert line breaks to <br> tags and wrap in paragraphs
-                formattedResponse = formattedResponse
-                    .split('\n\n')
-                    .map(paragraph => {
-                        // Skip paragraphs that are already HTML elements
-                        if (paragraph.trim().startsWith('<') && !paragraph.trim().startsWith('<br>')) {
-                            return paragraph;
+
+                const eventSource = new EventSource(`/api/generate?prompt=${encodeURIComponent(prompt)}&model=${encodeURIComponent(model)}&api_key=${encodeURIComponent(apiKey)}`);
+                let responseText = '';
+
+                eventSource.onmessage = (event) => {
+                    try {
+                        const data = JSON.parse(event.data);
+                        switch (data.type) {
+                            case 'response':
+                                responseText += data.content || '';
+                                responseContent.innerHTML = `<h1>Gemini 2.0 Flash</h1>${responseText}`;
+                                break;
+                            case 'reasoning':
+                                if (data.reasoning) { reasoningContent.textContent = data.reasoning; }
+                                break;
+                            case 'metrics':
+                                if (data.tokens) { tokenCount.textContent = data.tokens; }
+                                if (data.time) { computationTime.textContent = data.time; }
+                                break;
+                            case 'done':
+                                eventSource.close();
+                                loadingIndicator.style.display = 'none';
+                                break;
+                            case 'error':
+                                eventSource.close();
+                                loadingIndicator.style.display = 'none';
+                                responseContent.innerHTML = `<h1>Gemini 2.0 Flash</h1><p class="error-message">Error: ${data.error || 'Unknown error'}</p>`;
+                                break;
                         }
-                        return `<p>${paragraph.replace(/\n/g, '<br>')}</p>`;
-                    })
-                    .join('');
-                
-                // Add the title back
-                responseContent.innerHTML = '<h1>Gemini 1.5 Flash</h1>' + formattedResponse;
+                    } catch (error) { console.error('Error parsing event:', error); }
+                };
+
+                eventSource.onerror = (error) => {
+                    console.error('EventSource error:', error);
+                    eventSource.close();
+                    loadingIndicator.style.display = 'none';
+                    if (!responseText) { responseContent.innerHTML = `<h1>Gemini 2.0 Flash</h1><p class="error-message">Error: Connection to server lost</p>`; }
+                };
             }
         });
     </script>

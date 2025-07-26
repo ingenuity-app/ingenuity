@@ -3,687 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingenuity - Transformer Architecture</title>
-    <meta name="description" content="Learn about transformer architecture, the technology behind modern AI models | Ingenuity">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ingenuityapp.vercel.app/transformers.html">
-    <meta property="og:title" content="Transformer Architecture | Ingenuity">
-    <meta property="og:description" content="Learn about transformer architecture, the technology behind modern AI models">
-    <meta property="og:image" content="png/og-image-detailed.png">
-    <meta property="article:author" content="https://www.linkedin.com/in/bniladridas">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://ingenuityapp.vercel.app/transformers.html">
-    <meta property="twitter:title" content="Transformer Architecture | Ingenuity">
-    <meta property="twitter:description" content="Learn about transformer architecture, the technology behind modern AI models">
-    <meta property="twitter:image" content="png/og-image-detailed.png">
-    <meta property="twitter:creator" content="@bniladridas">
-
-    <!-- Author Information -->
-    <meta name="author" content="Niladri Das">
-
+    <title>Ingenuity - Transformers</title>
+    <meta name="description" content="Ingenuity - AI Language Model Interface">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="https://media.licdn.com/dms/image/v2/D4D0BAQGRXrchbVLnmQ/company-logo_200_200/B4DZcfVDG5GkAI-/0/1748577301437/ingenuity_amen_logo?e=1753920000&amp;v=beta&amp;t=t6AbqrmNNxzIwNRxMNfZiqUFGvyU6oMxHtAwHTH-WPM" type="image/png">
     <style>
-        #response-content h1 {
-            font-size: 20px;
-            margin-bottom: 16px;
-            font-weight: 400;
-            letter-spacing: 0.01em;
+        .content-page .main-content {
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding-top: 60px;
         }
-
-        #response-content h2 {
-            font-size: 16px;
-            margin-top: 24px;
-            margin-bottom: 12px;
-            font-weight: 500;
-            letter-spacing: 0.01em;
+        
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #111111;
+            margin-bottom: 40px;
+            line-height: 1.2;
         }
-
-        #response-content h3 {
-            font-size: 14px;
-            margin-top: 16px;
-            margin-bottom: 8px;
-            font-weight: 400;
-            letter-spacing: 0.01em;
+        
+        .page-content {
+            max-width: 600px;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333333;
         }
-
-        #response-content p {
-            margin-bottom: 12px;
-            line-height: 1.5;
-            color: #555;
-            font-size: 14px;
+        
+        .page-content h2 {
+            font-size: 32px;
+            font-weight: 600;
+            color: #111111;
+            margin: 40px 0 20px 0;
+            line-height: 1.3;
         }
-
-        #response-content ul {
-            margin-bottom: 12px;
-            padding-left: 16px;
-        }
-
-        #response-content li {
-            margin-bottom: 6px;
-            font-size: 14px;
-        }
-
-        #response-content a {
-            color: #555;
-            text-decoration: none;
-        }
-
-        #response-content a:hover {
-            color: #333;
-        }
-
-        .transformer-section {
-            margin-bottom: 24px;
-        }
-
-        .transformer-diagram {
-            margin: 20px 0;
-            text-align: center;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .transformer-diagram svg {
-            max-width: 100%;
-            height: auto;
-            min-width: 300px;
-        }
-
-        .transformer-diagram-caption {
-            font-size: 12px;
-            color: #888;
-            margin-top: 8px;
-            text-align: center;
-        }
-
-        .component-box {
-            border: 1px solid #eaeaea;
-            padding: 12px;
-            margin: 12px 0;
-            border-radius: 3px;
-        }
-
-        .component-box h3 {
-            margin-top: 0 !important;
-        }
-
-        .code-block {
-            font-family: monospace;
-            background-color: white;
-            border: 1px solid #eaeaea;
-            padding: 12px;
-            margin: 12px 0;
-            border-radius: 3px;
-            font-size: 13px;
-            overflow-x: auto;
-            white-space: pre;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .math-formula {
-            font-family: monospace;
-            padding: 8px;
-            margin: 8px 0;
-            text-align: center;
-            font-size: 13px;
-            overflow-x: auto;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .attention-visualization {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 16px 0;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .attention-matrix {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2px;
-            margin-bottom: 8px;
-            min-width: 200px;
-        }
-
-        .attention-cell {
-            width: 24px;
-            height: 24px;
-            background-color: white;
-            border: 1px solid #eaeaea;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-        }
-
-        .attention-cell.highlighted {
-            background-color: #f9f9f9;
-        }
-
-        /* Mobile Responsive Styles */
-        @media screen and (max-width: 768px) {
-            .transformer-diagram svg {
-                min-width: 250px;
-            }
-
-            .code-block {
-                font-size: 12px;
-                padding: 8px;
-            }
-
-            .math-formula {
-                font-size: 12px;
-                padding: 6px;
-            }
-
-            .attention-matrix {
-                min-width: 180px;
-            }
-
-            .attention-cell {
-                width: 20px;
-                height: 20px;
-                font-size: 9px;
-            }
-
-            .component-box {
-                padding: 10px;
-            }
-        }
-
-        @media screen and (max-width: 480px) {
-            .transformer-diagram svg {
-                min-width: 200px;
-            }
-
-            .code-block {
-                font-size: 11px;
-                padding: 6px;
-            }
-
-            .math-formula {
-                font-size: 11px;
-                padding: 4px;
-            }
-
-            .attention-matrix {
-                min-width: 160px;
-            }
-
-            .attention-cell {
-                width: 18px;
-                height: 18px;
-                font-size: 8px;
-            }
-
-            .component-box {
-                padding: 8px;
-            }
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
+        
+        .page-content p {
             margin-bottom: 20px;
         }
-
-        .footer-category {
-            position: relative;
+        
+        .content-area .info-section {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 20px;
         }
-
-        .footer-category-title {
-            color: #333;
-            font-weight: 500;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background-color 0.2s;
-        }
-
-        .footer-category-title:hover {
-            background-color: #f5f5f5;
-        }
-
-        .footer-dropdown {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: white;
-            border: 1px solid #eee;
-            border-radius: 4px;
-            padding: 10px;
-            min-width: 150px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.2s;
-            z-index: 1000;
-        }
-
-        .footer-category:hover .footer-dropdown {
-            opacity: 1;
-            visibility: visible;
-            bottom: calc(100% + 5px);
-        }
-
-        .footer-dropdown a {
-            display: block;
-            padding: 8px 12px;
-            color: #555;
-            text-decoration: none;
-            transition: background-color 0.2s;
-            white-space: nowrap;
-        }
-
-        .footer-dropdown a:hover {
-            background-color: #f5f5f5;
-            color: #333;
-        }
-
-        .copyright {
-            text-align: center;
-            color: #666;
+        
+        .info-section h3 {
             font-size: 14px;
-            margin-top: 20px;
+            font-weight: 600;
+            color: #666666;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .info-section p {
+            font-size: 12px;
+            color: #888888;
+            line-height: 1.4;
+            margin: 0;
         }
     </style>
 </head>
-<body>
+
+<body class="content-page">
     <header>
-        <div class="logo-container">
-            <img src="assets/ingenuity-logo.svg" alt="Ingenuity" class="logo">
-        </div>
         <h1>Ingenuity</h1>
     </header>
 
-    <div class="container">
-        <div class="subtitle">Advanced AI | <span style="color: #3498db;">Built for Developers</span></div>
+    <div class="layout-container">
+        <!-- Left Sidebar - Navigation -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item">Home</a>
+                <a href="transformers.html" class="nav-item">Transformers</a>
+                <a href="advanced-ai.html" class="nav-item">Advanced AI</a>
+                <a href="qwen3-235b.html" class="nav-item">Qwen 3.5B</a>
+                <a href="gemini.html" class="nav-item">Gemini</a>
+                <a href="documentation.html" class="nav-item">Documentation</a>
+                <a href="ai-ethics.html" class="nav-item">AI Ethics</a>
+                <a href="about.html" class="nav-item">About</a>
+                <a href="settings.html" class="nav-item">Settings</a>
+            </nav>
+        </aside>
 
-        <div id="response-content">
-            <h1>Transformer Architecture</h1>
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <h1 class="page-title">Understanding Transformers</h1>
+            
+            <div class="page-content">
+                <h2>What are Transformers?</h2>
+                <p>Transformers are a revolutionary neural network architecture that has transformed the field of natural language processing and artificial intelligence. Introduced in the paper "Attention Is All You Need" by Vaswani et al., transformers have become the foundation for most modern AI language models.</p>
+                
+                <h2>Key Innovation</h2>
+                <p>The transformer architecture introduced the concept of self-attention, allowing models to weigh the importance of different words in a sequence when processing each word. This mechanism enables the model to capture long-range dependencies and contextual relationships more effectively than previous architectures.</p>
 
-            <div class="transformer-section">
-                <h2>1. Introduction to Transformers</h2>
-                <p>Transformers are a type of neural network architecture introduced in the 2017 paper "Attention Is All You Need" by Vaswani et al. They have revolutionized natural language processing and many other domains by enabling efficient processing of sequential data without the limitations of recurrent neural networks.</p>
-
-                <p>Unlike previous sequence models that process data sequentially (one element at a time), transformers process entire sequences simultaneously, allowing for much more efficient parallel computation and better capture of long-range dependencies.</p>
+                <h2>How They Work</h2>
+                <p>Transformers process sequences of data through multiple layers of attention mechanisms and feed-forward networks. Each layer allows the model to build increasingly complex representations of the input, enabling sophisticated understanding and generation of human language.</p>
+                
+                <p>The attention mechanism allows the model to focus on relevant parts of the input when generating each part of the output, making it particularly effective for tasks like translation, summarization, and question answering.</p>
             </div>
+        </main>
 
-            <div class="transformer-section">
-                <h2>2. Transformer Architecture Overview</h2>
-                <p>The transformer architecture consists of an encoder and a decoder, each composed of multiple identical layers. The key innovation is the use of self-attention mechanisms that allow the model to weigh the importance of different parts of the input sequence when producing each part of the output.</p>
-
-                <div class="transformer-diagram">
-                    <svg width="500" height="400" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Encoder -->
-                        <rect x="100" y="50" width="120" height="300" fill="white" stroke="#eaeaea" stroke-width="1" />
-                        <text x="160" y="30" font-size="14" text-anchor="middle" fill="#555">Encoder</text>
-
-                        <!-- Encoder Layers -->
-                        <rect x="110" y="70" width="100" height="60" fill="white" stroke="#eaeaea" stroke-width="1" />
-                        <text x="160" y="100" font-size="12" text-anchor="middle" fill="#555">Self-Attention</text>
-
-                        <rect x="110" y="140" width="100" height="60" fill="white" stroke="#eaeaea" stroke-width="1" />
-                        <text x="160" y="170" font-size="12" text-anchor="middle" fill="#555">Feed Forward</text>
-
-                        <rect x="110" y="210" width="100" height="60" fill="white" stroke="#eaeaea" stroke-width="1" />
-                        <text x="160" y="240" font-size="12" text-anchor="middle" fill="#555">Layer Norm</text>
-
-                        <text x="160" y="290" font-size="12" text-anchor="middle" fill="#555">× N</text>
-
-                        <!-- Decoder -->
-                        <rect x="280" y="50" width="120" height="300" fill="white" stroke="#eaeaea" stroke-width="1" />
-                        <text x="340" y="30" font-size="14" text-anchor="middle" fill="#555">Decoder</text>
-
-                        <!-- Decoder Layers -->
-                        <rect x="290" y="70" width="100" height="40" fill="white" stroke="#eaeaea" stroke-width="1" />
-                        <text x="340" y="95" font-size="12" text-anchor="middle" fill="#555">Self-Attention</text>
-
-                        <rect x="290" y="120" width="100" height="40" fill="white" stroke="#eaeaea" stroke-width="1" />
-                        <text x="340" y="145" font-size="12" text-anchor="middle" fill="#555">Cross-Attention</text>
-
-                        <rect x="290" y="170" width="100" height="40" fill="white" stroke="#eaeaea" stroke-width="1" />
-                        <text x="340" y="195" font-size="12" text-anchor="middle" fill="#555">Feed Forward</text>
-
-                        <rect x="290" y="220" width="100" height="40" fill="white" stroke="#eaeaea" stroke-width="1" />
-                        <text x="340" y="245" font-size="12" text-anchor="middle" fill="#555">Layer Norm</text>
-
-                        <text x="340" y="290" font-size="12" text-anchor="middle" fill="#555">× N</text>
-
-                        <!-- Connections -->
-                        <line x1="220" y1="100" x2="290" y2="140" stroke="#eaeaea" stroke-width="1" />
-                        <line x1="220" y1="170" x2="290" y2="140" stroke="#eaeaea" stroke-width="1" />
-
-                        <!-- Input/Output -->
-                        <rect x="100" y="360" width="120" height="30" fill="white" stroke="#eaeaea" stroke-width="1" />
-                        <text x="160" y="380" font-size="12" text-anchor="middle" fill="#555">Input Embedding</text>
-
-                        <rect x="280" y="360" width="120" height="30" fill="white" stroke="#eaeaea" stroke-width="1" />
-                        <text x="340" y="380" font-size="12" text-anchor="middle" fill="#555">Output Embedding</text>
-
-                        <!-- Arrows -->
-                        <line x1="160" y1="350" x2="160" y2="360" stroke="#555" stroke-width="1" />
-                        <polygon points="160,350 156,358 164,358" fill="#555" />
-
-                        <line x1="340" y1="350" x2="340" y2="360" stroke="#555" stroke-width="1" />
-                        <polygon points="340,350 336,358 344,358" fill="#555" />
-                    </svg>
-                    <div class="transformer-diagram-caption">Figure 1: Basic architecture of a Transformer model with encoder and decoder components</div>
-                </div>
+        <!-- Right Content Area -->
+        <section class="content-area">
+            <div class="info-section">
+                <h3>Architecture</h3>
+                <p>Self-attention mechanism<br>Multi-layer processing</p>
             </div>
-
-            <div class="transformer-section">
-                <h2>3. Key Components</h2>
-
-                <div class="component-box">
-                    <h3>3.1 Self-Attention Mechanism</h3>
-                    <p>The self-attention mechanism allows the model to weigh the importance of different words in a sentence when representing each word. This is crucial for understanding context and relationships between words regardless of their distance in the sequence.</p>
-
-                    <p>The attention function maps a query and a set of key-value pairs to an output. The output is computed as a weighted sum of the values, where the weight assigned to each value is computed by a compatibility function of the query with the corresponding key.</p>
-
-                    <div class="math-formula">
-                        Attention(Q, K, V) = softmax(QK<sup>T</sup>/√d<sub>k</sub>)V
-                    </div>
-
-                    <p>Where:</p>
-                    <ul>
-                        <li>Q (Query), K (Key), and V (Value) are matrices derived from the input</li>
-                        <li>d<sub>k</sub> is the dimension of the keys (used for scaling)</li>
-                        <li>softmax normalizes the weights to sum to 1</li>
-                    </ul>
-
-                    <div class="attention-visualization">
-                        <div class="attention-matrix">
-                            <div class="attention-cell">0.1</div>
-                            <div class="attention-cell">0.2</div>
-                            <div class="attention-cell highlighted">0.6</div>
-                            <div class="attention-cell">0.1</div>
-                            <div class="attention-cell">0.2</div>
-                            <div class="attention-cell highlighted">0.5</div>
-                            <div class="attention-cell">0.2</div>
-                            <div class="attention-cell">0.1</div>
-                            <div class="attention-cell highlighted">0.7</div>
-                            <div class="attention-cell">0.1</div>
-                            <div class="attention-cell">0.1</div>
-                            <div class="attention-cell">0.1</div>
-                            <div class="attention-cell">0.3</div>
-                            <div class="attention-cell">0.3</div>
-                            <div class="attention-cell">0.2</div>
-                            <div class="attention-cell highlighted">0.2</div>
-                        </div>
-                        <div class="transformer-diagram-caption">Figure 2: Simplified visualization of attention weights</div>
-                    </div>
-                </div>
-
-                <div class="component-box">
-                    <h3>3.2 Multi-Head Attention</h3>
-                    <p>Instead of performing a single attention function, transformers use multi-head attention, which allows the model to jointly attend to information from different representation subspaces at different positions.</p>
-
-                    <p>This is achieved by linearly projecting the queries, keys, and values multiple times with different learned projections, performing attention in parallel, and then concatenating the results.</p>
-
-                    <div class="math-formula">
-                        MultiHead(Q, K, V) = Concat(head<sub>1</sub>, ..., head<sub>h</sub>)W<sup>O</sup>
-                    </div>
-                    <div class="math-formula">
-                        where head<sub>i</sub> = Attention(QW<sub>i</sub><sup>Q</sup>, KW<sub>i</sub><sup>K</sup>, VW<sub>i</sub><sup>V</sup>)
-                    </div>
-                </div>
-
-                <div class="component-box">
-                    <h3>3.3 Position Encoding</h3>
-                    <p>Since transformers process all elements of a sequence in parallel, they lack inherent understanding of the order of elements. Position encodings are added to the input embeddings to provide information about the position of each element in the sequence.</p>
-
-                    <p>The original transformer paper used sine and cosine functions of different frequencies:</p>
-
-                    <div class="math-formula">
-                        PE<sub>(pos,2i)</sub> = sin(pos/10000<sup>2i/d<sub>model</sub></sup>)
-                    </div>
-                    <div class="math-formula">
-                        PE<sub>(pos,2i+1)</sub> = cos(pos/10000<sup>2i/d<sub>model</sub></sup>)
-                    </div>
-
-                    <p>Where pos is the position and i is the dimension. This allows the model to learn to attend by relative positions, as for any fixed offset k, PE<sub>pos+k</sub> can be represented as a linear function of PE<sub>pos</sub>.</p>
-                </div>
-
-                <div class="component-box">
-                    <h3>3.4 Feed-Forward Networks</h3>
-                    <p>Each layer in the transformer contains a fully connected feed-forward network, which is applied to each position separately and identically. This consists of two linear transformations with a ReLU activation in between:</p>
-
-                    <div class="math-formula">
-                        FFN(x) = max(0, xW<sub>1</sub> + b<sub>1</sub>)W<sub>2</sub> + b<sub>2</sub>
-                    </div>
-                </div>
-
-                <div class="component-box">
-                    <h3>3.5 Layer Normalization</h3>
-                    <p>Layer normalization is applied after each sub-layer in the transformer. It normalizes the inputs across the features, which helps stabilize and accelerate training:</p>
-
-                    <div class="math-formula">
-                        LayerNorm(x) = α ⊙ (x - μ) / (σ + ε) + β
-                    </div>
-
-                    <p>Where μ and σ are the mean and standard deviation of the inputs, α and β are learnable parameters, and ε is a small constant for numerical stability.</p>
-                </div>
-
-                <div class="component-box">
-                    <h3>3.6 Residual Connections</h3>
-                    <p>Residual connections are used around each sub-layer, followed by layer normalization. This helps with gradient flow during training and allows the model to effectively utilize both the transformed and original representations:</p>
-
-                    <div class="math-formula">
-                        Output = LayerNorm(x + Sublayer(x))
-                    </div>
-                </div>
+            
+            <div class="info-section">
+                <h3>Applications</h3>
+                <p>Language models<br>Translation systems</p>
             </div>
-
-            <div class="transformer-section">
-                <h2>4. How Transformers Process Information</h2>
-
-                <p>The processing flow in a transformer can be summarized as follows:</p>
-
-                <ol>
-                    <li><strong>Input Embedding:</strong> Convert input tokens (e.g., words) into vectors</li>
-                    <li><strong>Position Encoding:</strong> Add positional information to the embeddings</li>
-                    <li><strong>Encoder Processing:</strong>
-                        <ul>
-                            <li>Self-attention to capture relationships between all input elements</li>
-                            <li>Feed-forward networks to process each position</li>
-                            <li>Layer normalization and residual connections</li>
-                            <li>Repeat for N encoder layers</li>
-                        </ul>
-                    </li>
-                    <li><strong>Decoder Processing (for generative tasks):</strong>
-                        <ul>
-                            <li>Masked self-attention to prevent attending to future positions</li>
-                            <li>Cross-attention to attend to encoder outputs</li>
-                            <li>Feed-forward networks</li>
-                            <li>Layer normalization and residual connections</li>
-                            <li>Repeat for N decoder layers</li>
-                        </ul>
-                    </li>
-                    <li><strong>Output Layer:</strong> Linear transformation and softmax to produce probabilities</li>
-                </ol>
+            
+            <div class="info-section">
+                <h3>Impact</h3>
+                <p>Revolutionary AI advancement<br>Foundation of modern NLP</p>
             </div>
-
-            <div class="transformer-section">
-                <h2>5. Advantages of Transformers</h2>
-
-                <ul>
-                    <li><strong>Parallelization:</strong> Unlike RNNs, transformers can process all elements of a sequence in parallel, making them much faster to train</li>
-                    <li><strong>Long-range Dependencies:</strong> The attention mechanism allows transformers to capture dependencies between distant elements in a sequence without the vanishing gradient problem</li>
-                    <li><strong>Scalability:</strong> Transformers scale well with more data and larger model sizes</li>
-                    <li><strong>Versatility:</strong> The same architecture can be applied to various tasks across different domains</li>
-                    <li><strong>Interpretability:</strong> Attention weights can provide insights into which parts of the input the model focuses on</li>
-                </ul>
-            </div>
-
-            <div class="transformer-section">
-                <h2>6. Applications of Transformers</h2>
-
-                <ul>
-                    <li><strong>Natural Language Processing:</strong> Machine translation, text summarization, question answering, sentiment analysis</li>
-                    <li><strong>Computer Vision:</strong> Image classification, object detection, image generation</li>
-                    <li><strong>Speech Processing:</strong> Speech recognition, speech synthesis</li>
-                    <li><strong>Multimodal Learning:</strong> Tasks involving multiple types of data (text, images, audio)</li>
-                    <li><strong>Reinforcement Learning:</strong> Decision making in complex environments</li>
-                    <li><strong>Bioinformatics:</strong> Protein structure prediction, genomic sequence analysis</li>
-                </ul>
-            </div>
-
-            <div class="transformer-section">
-                <h2>7. Transformer Variants and Evolution</h2>
-
-                <p>Since the original transformer paper, numerous variants and improvements have been proposed:</p>
-
-                <ul>
-                    <li><strong>BERT (Bidirectional Encoder Representations from Transformers):</strong> Pre-trained bidirectional transformer for language understanding</li>
-                    <li><strong>GPT (Generative Pre-trained Transformer):</strong> Autoregressive language model using only the decoder part of the transformer</li>
-                    <li><strong>T5 (Text-to-Text Transfer Transformer):</strong> Unified framework that converts all NLP tasks to a text-to-text format</li>
-                    <li><strong>Vision Transformer (ViT):</strong> Application of transformers to image processing by treating images as sequences of patches</li>
-                    <li><strong>Efficient Transformers:</strong> Variants like Linformer, Reformer, and Performer that reduce the quadratic complexity of attention</li>
-                    <li><strong>Mixture of Experts:</strong> Transformers with specialized sub-networks activated based on the input</li>
-                </ul>
-            </div>
-
-            <div class="transformer-section">
-                <h2>8. Implementing Transformers</h2>
-
-                <p>Here's a simplified example of how the self-attention mechanism might be implemented in Python with PyTorch:</p>
-
-                <div class="code-block">
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
-class SelfAttention(nn.Module):
-    def __init__(self, embed_size, heads):
-        super(SelfAttention, self).__init__()
-        self.embed_size = embed_size
-        self.heads = heads
-        self.head_dim = embed_size // heads
-
-        assert (self.head_dim * heads == embed_size), "Embed size needs to be divisible by heads"
-
-        self.values = nn.Linear(self.head_dim, self.head_dim, bias=False)
-        self.keys = nn.Linear(self.head_dim, self.head_dim, bias=False)
-        self.queries = nn.Linear(self.head_dim, self.head_dim, bias=False)
-        self.fc_out = nn.Linear(heads * self.head_dim, embed_size)
-
-    def forward(self, values, keys, query, mask=None):
-        N = query.shape[0]
-        value_len, key_len, query_len = values.shape[1], keys.shape[1], query.shape[1]
-
-        # Split embedding into self.heads pieces
-        values = values.reshape(N, value_len, self.heads, self.head_dim)
-        keys = keys.reshape(N, key_len, self.heads, self.head_dim)
-        queries = query.reshape(N, query_len, self.heads, self.head_dim)
-
-        values = self.values(values)
-        keys = self.keys(keys)
-        queries = self.queries(queries)
-
-        # Scaled dot-product attention
-        energy = torch.einsum("nqhd,nkhd->nhqk", [queries, keys])
-        # queries shape: (N, query_len, heads, head_dim)
-        # keys shape: (N, key_len, heads, head_dim)
-        # energy shape: (N, heads, query_len, key_len)
-
-        if mask is not None:
-            energy = energy.masked_fill(mask == 0, float("-1e20"))
-
-        attention = F.softmax(energy / (self.embed_size ** (1/2)), dim=3)
-
-        out = torch.einsum("nhql,nlhd->nqhd", [attention, values])
-        # attention shape: (N, heads, query_len, key_len)
-        # values shape: (N, value_len, heads, head_dim)
-        # out shape: (N, query_len, heads, head_dim)
-
-        out = out.reshape(N, query_len, self.heads * self.head_dim)
-        out = self.fc_out(out)
-        return out
-                </div>
-            </div>
-
-            <div class="transformer-section">
-                <h2>9. Future Directions</h2>
-
-                <p>The field of transformer research continues to evolve rapidly. Some promising directions include:</p>
-
-                <ul>
-                    <li><strong>Efficiency Improvements:</strong> Reducing computational and memory requirements to enable larger models and longer contexts</li>
-                    <li><strong>Multimodal Transformers:</strong> Better integration of different data types (text, images, audio, video)</li>
-                    <li><strong>Sparse Attention:</strong> More selective attention mechanisms that focus only on relevant parts of the input</li>
-                    <li><strong>Interpretability:</strong> Better understanding of how transformers work and make decisions</li>
-                    <li><strong>Domain-Specific Architectures:</strong> Specialized transformer variants optimized for particular applications</li>
-                    <li><strong>Hybrid Approaches:</strong> Combining transformers with other neural network architectures</li>
-                </ul>
-            </div>
-
-            <div class="transformer-section">
-                <h2>10. Conclusion</h2>
-
-                <p>Transformers have revolutionized machine learning across multiple domains. Their ability to process sequences in parallel while capturing long-range dependencies has made them the architecture of choice for many state-of-the-art models. As research continues, we can expect further improvements in efficiency, capabilities, and applications of transformer models.</p>
-
-                <p>Understanding the fundamental principles of transformers is essential for anyone working in AI, as they form the backbone of many modern systems and will likely continue to do so for the foreseeable future.</p>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <div class="footer-links">
-            <div class="footer-category">
-                <div class="footer-category-title">Models</div>
-                <div class="footer-dropdown">
-                    <a href="transformers.html">Transformers</a>
-                    <a href="advanced-ai.html">Advanced AI</a>
-                    <a href="qwen3-235b.html">Qwen 3.5B</a>
-                    <a href="gemini.html">Gemini</a>
-                </div>
-            </div>
-            <div class="footer-category">
-                <div class="footer-category-title">Resources</div>
-                <div class="footer-dropdown">
-                    <a href="documentation.html">Documentation</a>
-                    <a href="ai-ethics.html">AI Ethics</a>
-                    <a href="partners.html">Partners</a>
-                </div>
-            </div>
-            <div class="footer-category">
-                <div class="footer-category-title">About</div>
-                <div class="footer-dropdown">
-                    <a href="index.html">Main Page</a>
-                    <a href="about.html">About Us</a>
-                    <a href="settings.html">Settings</a>
-                </div>
-            </div>
-        </div>
-        <div class="copyright">
-            &copy; 2025 Ingenuity. All rights reserved. Interface design used under MIT License.
-        </div>
-    </footer>
-
-    <!-- Cookie Consent Banner -->
-    <div id="cookie-consent" class="cookie-consent">
-        <div class="cookie-text">
-            This website uses cookies to enhance your experience. By continuing to use this site, you consent to our use of cookies in accordance with our <a href="terms.html">Terms of Service</a>.
-        </div>
-        <div class="cookie-buttons">
-            <button id="cookie-decline" class="cookie-button cookie-decline">Decline</button>
-            <button id="cookie-accept" class="cookie-button cookie-accept">Accept</button>
-        </div>
+        </section>
     </div>
 
     <script src="security.js"></script>
-    <script src="cookies.js"></script>
-    <script src="connection-status.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

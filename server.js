@@ -3,7 +3,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
 const axios = require('axios');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+const { GoogleGenAI } = require('@google/genai');
 
 // Load environment variables
 dotenv.config();
@@ -271,6 +271,57 @@ app.get('/api/generate', security.rateLimiter.limit, security.validateInput, asy
             return res.status(400).json({ error: 'Prompt is required' });
         }
 
+        console.log(`Routing request for model: ${model}`);
+
+        res.setHeader('Content-Type', 'text/event-stream');
+        res.setHeader('Cache-Control', 'no-cache');
+        res.setHeader('Connection', 'keep-alive');
+
+        if (model.toLowerCase().includes('gemini')) {
+            if (!userApiKey) {
+                return res.status(400).json({ error: 'API key required for Gemini model' });
+            }
+
+            try {
+                const ai = new GoogleGenAI(userApiKey);
+
+                const contents = [
+                    {
+                        role: 'user',
+                        parts: [{ text: prompt }],
+                    },
+                ];
+
+                const tools = [
+                    {
+                        googleSearch: {}
+                    },
+                ];
+                const config = {
+                    tools,
+                };
+
+                const response = await ai.models.generateContentStream({
+                    model: model,
+                    config,
+                    contents: contents,
+                });
+
+                for await (const chunk of response) {
+                    const chunkText = chunk.text;
+                    if (chunkText) {
+                        res.write(`data: ${JSON.stringify({ type: 'response', content: chunkText })}\n\n`);
+                    }
+                }
+                res.write(`data: ${JSON.stringify({ type: 'done' })}\n\n`);
+            } catch (error) {
+                console.error('Error calling Gemini API:', error);
+                res.write(`data: ${JSON.stringify({ type: 'error', error: error.message || 'Failed to get response from Gemini API' })}\n\n`);
+                res.end();
+            }
+            return; // End the request here for Gemini
+        }
+
         // Use user-provided API key for Qwen3 model, otherwise use environment variable
         let apiKey = process.env.TOGETHER_API_KEY;
 
@@ -292,10 +343,6 @@ app.get('/api/generate', security.rateLimiter.limit, security.validateInput, asy
         console.log(`Streaming with model: ${model}`);
 
         // Set up streaming response
-        res.setHeader('Content-Type', 'text/event-stream');
-        res.setHeader('Cache-Control', 'no-cache');
-        res.setHeader('Connection', 'keep-alive');
-
         let finalResponse = '';
         let tokenCount = 0;
 
@@ -606,17 +653,13 @@ app.get('/documentation', (_, res) => {
     res.sendFile(path.join(__dirname, 'documentation.html'));
 });
 
-app.get('/partners', (_, res) => {
-    res.sendFile(path.join(__dirname, 'partners.html'));
-});
+
 
 app.get('/settings', (_, res) => {
     res.sendFile(path.join(__dirname, 'settings.html'));
 });
 
-app.get('/terms', (_, res) => {
-    res.sendFile(path.join(__dirname, 'terms.html'));
-});
+
 
 app.get('/qwen3-235b', (_, res) => {
     res.sendFile(path.join(__dirname, 'qwen3-235b.html'));

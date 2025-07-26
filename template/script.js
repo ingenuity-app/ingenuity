@@ -103,10 +103,8 @@ function setupEventListeners() {
     // Click outside to hide suggestions
     document.addEventListener('click', (e) => {
         const suggestionsContainer = document.getElementById('suggestions-container');
-        const cookieConsent = document.getElementById('cookie-consent');
         if (suggestionsContainer &&
             !suggestionsContainer.contains(e.target) &&
-            !(cookieConsent && cookieConsent.contains(e.target)) &&
             e.target !== promptTextarea) {
             // Remove visible class first to trigger animation
             suggestionsContainer.classList.remove('visible');
